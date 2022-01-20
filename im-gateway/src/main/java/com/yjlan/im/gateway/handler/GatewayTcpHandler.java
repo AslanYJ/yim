@@ -1,8 +1,15 @@
 package com.yjlan.im.gateway.handler;
 
+import com.yjlan.im.gateway.server.GatewayNettyServer;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.socket.SocketChannel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author yjlan
@@ -10,12 +17,27 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  * @Description 负责处理TCP连接的handler
  * @date 2022.01.20 17:20
  */
-@ChannelHandler.Sharable
+
 public class GatewayTcpHandler extends ChannelInboundHandlerAdapter {
-    
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GatewayTcpHandler.class);
+
     @Override
-    public void channelRead(ChannelHandlerContext channelHandlerContext, Object o) throws Exception {
-        channelHandlerContext.writeAndFlush(o);
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("已经跟客户端建立连接，客户端地址为：" + ctx.channel());
+    }
+
+    @Override
+    public void channelRead(ChannelHandlerContext channelHandlerContext, Object msg) throws Exception {
+        ByteBuf byteBuf = (ByteBuf) msg;
+        byte[] msgBuffer = new byte[byteBuf.readableBytes()];
+        // 将消息读到msgBuffer中
+        byteBuf.readBytes(msgBuffer);
+        String content = new String(msgBuffer, StandardCharsets.UTF_8);
+        LOGGER.info("tcp服务器收到的消息为:" + content);
+//        if (GatewayNettyServer.clientSocketChannel == null) {
+//            GatewayNettyServer.clientSocketChannel = (SocketChannel) channelHandlerContext.channel();
+//        }
     }
     
     

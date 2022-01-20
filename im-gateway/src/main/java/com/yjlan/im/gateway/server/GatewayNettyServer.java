@@ -12,6 +12,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
+import io.netty.handler.logging.LoggingHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,8 +44,8 @@ public class GatewayNettyServer {
      * processor线程池
      */
     private final EventLoopGroup workerGroup = new NioEventLoopGroup();
-    
-    
+
+    public static SocketChannel clientSocketChannel = null;
     
     
     @PostConstruct
@@ -67,14 +68,16 @@ public class GatewayNettyServer {
                 LOGGER.info("启动tcp gateway netty 服务成功");
             }
             // 等待关闭
-            channelFuture.channel().closeFuture().sync();
+            //channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             LOGGER.error("启动tcp gateway netty 服务失败 ");
         }
     }
     
     
-    
+    public void sendMsg(String msg) {
+        clientSocketChannel.writeAndFlush(msg);
+    }
     
     
     
