@@ -6,6 +6,6 @@ package com.yjlan.im.gateway;
  * @Description 传输层
  * @date 2022.01.20 15:47
  */
-public class GateWayApplication {
+public class GatewayApplication {
 
 }
