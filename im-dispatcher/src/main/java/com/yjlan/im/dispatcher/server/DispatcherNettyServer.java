@@ -71,10 +71,10 @@ public class DispatcherNettyServer {
                     });
             ChannelFuture channelFuture = serverBootstrap.bind(nettyPort).sync();
             if (channelFuture.isSuccess()) {
-                LOGGER.info("启动tcp gateway netty 服务成功");
+                LOGGER.info("启动dispatcher netty 服务成功");
             }
         } catch (InterruptedException e) {
-            LOGGER.error("启动tcp gateway netty 服务失败 ");
+            LOGGER.error("启动dispatcher netty 服务失败 ");
         }
     }
     
@@ -83,7 +83,7 @@ public class DispatcherNettyServer {
     public void close() {
         bossGroup.shutdownGracefully();
         workerGroup.shutdownGracefully();
-        LOGGER.info("成功关闭tcp gateway netty 服务");
+        LOGGER.info("成功关闭dispatcher netty 服务");
     }
     
     

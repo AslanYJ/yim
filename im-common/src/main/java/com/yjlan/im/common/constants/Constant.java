@@ -11,5 +11,9 @@ public class Constant {
     public static final int DEFAULT_HASH_MAP_SIZE = 16;
     
     
-    public static final int DEFAULT_MESSAGE_HEADER_SIZE = 16;
+    public static final int DEFAULT_MESSAGE_HEADER_LENGTH = 16;
+
+    public static final int VERSION = 1;
+
+    public static final int DEFAULT_SEQUENCE = 1;
 }

@@ -1,5 +1,11 @@
 package com.yjlan.im.gateway.handler;
 
+import com.yjlan.im.common.proto.AuthenticateRequest;
+import com.yjlan.im.common.protocol.MessageHeader;
+import com.yjlan.im.common.protocol.MessageTypeManager;
+import com.yjlan.im.common.utils.SpringBeanFactory;
+import com.yjlan.im.gateway.dispatcher.DispatcherManager;
+import com.yjlan.im.gateway.session.SessionManager;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.SocketChannel;
@@ -25,16 +31,32 @@ public class GatewayTcpHandler extends SimpleChannelInboundHandler<MessageProtoc
     }
 
     @Override
-    public void channelRead0(ChannelHandlerContext channelHandlerContext, MessageProtocol msg) throws Exception {
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        SocketChannel socketChannel = (SocketChannel) ctx.channel();
+        SessionManager.remove(socketChannel);
+        LOGGER.info("检测到客户端的连接断开，删除其连接缓存：address:{}", socketChannel.remoteAddress().toString());
+    }
+
+    @Override
+    public void channelRead0(ChannelHandlerContext ctx, MessageProtocol msg) throws Exception {
         LOGGER.info("tcp服务器收到的消息为:" + msg);
-        if (GatewayNettyServer.clientSocketChannel == null) {
-            GatewayNettyServer.clientSocketChannel = (SocketChannel) channelHandlerContext.channel();
+        // 首先需要认证一下是否已经登录拿到对应的token,进行认证
+        MessageHeader header = msg.getHeader();
+        // 如果是认证请求
+        if (header.getMessageType() == MessageTypeManager.AUTHENTICATE_REQUEST.getMessageType()) {
+            DispatcherManager dispatcherManager = SpringBeanFactory.getBean(DispatcherManager.class);
+            // 这里如果认证通过的话，会在dispatcher中增加一个缓存
+            AuthenticateRequest request = (AuthenticateRequest)msg.getBody();
+            LOGGER.info(request.toString());
+            dispatcherManager.authenticate((SocketChannel) ctx.channel(),request);
+            SessionManager.put(request.getUid(),(SocketChannel) ctx.channel());
         }
     }
-    
-    
+
+
     /**
      * 处理完毕一个请求
+     *
      * @param ctx channel上下文
      * @throws Exception 异常
      */
@@ -42,11 +64,12 @@ public class GatewayTcpHandler extends SimpleChannelInboundHandler<MessageProtoc
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         ctx.flush();
     }
-    
-    
+
+
     /**
      * 发生异常
-     * @param ctx channel上下文
+     *
+     * @param ctx   channel上下文
      * @param cause 异常
      * @throws Exception 抛出异常
      */

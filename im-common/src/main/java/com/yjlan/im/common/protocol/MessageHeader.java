@@ -90,7 +90,7 @@ public final class MessageHeader {
      * @param byteBuf 数据
      */
     public void enCode(ByteBuf byteBuf) {
-        byteBuf.writeInt(Constant.DEFAULT_MESSAGE_HEADER_SIZE);
+        byteBuf.writeInt(Constant.DEFAULT_MESSAGE_HEADER_LENGTH);
         byteBuf.writeInt(version);
         byteBuf.writeInt(messageType);
         byteBuf.writeInt(sequence);

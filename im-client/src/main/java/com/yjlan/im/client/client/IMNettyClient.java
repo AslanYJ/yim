@@ -4,6 +4,8 @@ import com.yjlan.im.client.handler.IMClientHandler;
 import com.yjlan.im.common.codec.MessageProtocolDecoder;
 import com.yjlan.im.common.codec.MessageProtocolEncoder;
 
+import com.yjlan.im.common.proto.AuthenticateRequest;
+import com.yjlan.im.common.utils.MessageProtocolUtils;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.nio.charset.Charset;
+import java.util.Map;
 
 /**
  * @author yjlan
@@ -87,10 +90,11 @@ public class IMNettyClient {
 
 
     public void sendMsg(String msg) {
-        ByteBufAllocator allocator = ByteBufAllocator.DEFAULT;
-        ByteBuf writeBuffer = allocator.buffer(msg.getBytes().length);
-        writeBuffer.writeCharSequence(msg, Charset.defaultCharset());
-        socketChannel.writeAndFlush(writeBuffer);
+        AuthenticateRequest request = AuthenticateRequest.newBuilder()
+                .setToken(msg)
+                .setUid(msg)
+                .setTimestamp(System.currentTimeMillis()).build();
+        MessageProtocolUtils.sendMsg(socketChannel,request);
     }
 
     /**
