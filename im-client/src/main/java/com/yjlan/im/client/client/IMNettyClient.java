@@ -1,6 +1,9 @@
 package com.yjlan.im.client.client;
 
 import com.yjlan.im.client.handler.IMClientHandler;
+import com.yjlan.im.common.codec.MessageProtocolDecoder;
+import com.yjlan.im.common.codec.MessageProtocolEncoder;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
@@ -8,6 +11,8 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +62,12 @@ public class IMNettyClient {
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         ChannelPipeline pipeline = socketChannel.pipeline();
+                        // 一次解码器
+                        pipeline.addLast(new ProtobufVarint32FrameDecoder());
+                        pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
+                        // 二次解码器
+                        pipeline.addLast(new MessageProtocolDecoder());
+                        pipeline.addLast(new MessageProtocolEncoder());
                         pipeline.addLast(new IMClientHandler());
                     }
                 });

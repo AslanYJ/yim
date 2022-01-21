@@ -1,7 +1,8 @@
 package com.yjlan.im.client.scan;
 
-import com.yjlan.im.client.utils.SpringBeanFactory;
 import com.yjlan.im.client.client.IMNettyClient;
+import com.yjlan.im.common.utils.SpringBeanFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

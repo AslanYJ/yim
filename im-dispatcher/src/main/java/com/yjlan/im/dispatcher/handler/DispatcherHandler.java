@@ -1,23 +1,25 @@
-package com.yjlan.im.gateway.handler;
+package com.yjlan.im.dispatcher.handler;
 
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.socket.SocketChannel;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.yjlan.im.common.protocol.MessageProtocol;
-import com.yjlan.im.gateway.server.GatewayNettyServer;
+
 
 /**
  * @author yjlan
  * @version V1.0
- * @Description 负责处理TCP连接的handler
+ * @Description 负责处理分发系统的handler
  * @date 2022.01.20 17:20
  */
+@Sharable
+public class DispatcherHandler extends SimpleChannelInboundHandler<MessageProtocol> {
 
-public class GatewayTcpHandler extends SimpleChannelInboundHandler<MessageProtocol> {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(GatewayTcpHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherHandler.class);
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -25,11 +27,9 @@ public class GatewayTcpHandler extends SimpleChannelInboundHandler<MessageProtoc
     }
 
     @Override
-    public void channelRead0(ChannelHandlerContext channelHandlerContext, MessageProtocol msg) throws Exception {
-        LOGGER.info("tcp服务器收到的消息为:" + msg);
-        if (GatewayNettyServer.clientSocketChannel == null) {
-            GatewayNettyServer.clientSocketChannel = (SocketChannel) channelHandlerContext.channel();
-        }
+    public void channelRead0(ChannelHandlerContext channelHandlerContext, MessageProtocol messageProtocol) throws Exception {
+        LOGGER.info("分发服务器收到的消息为:" + messageProtocol);
+     
     }
     
     

@@ -1,7 +1,8 @@
 package com.yjlan.im.gateway.scan;
 
+import com.yjlan.im.common.utils.SpringBeanFactory;
 import com.yjlan.im.gateway.server.GatewayNettyServer;
-import com.yjlan.im.gateway.utils.SpringBeanFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

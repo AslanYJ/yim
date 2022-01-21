@@ -1,0 +1,28 @@
+// 使用的版本
+syntax = "proto3";
+// 输出到的包名
+option java_package = "com.yjlan.im.common.proto";
+// 是否拆分成多个文件
+option java_multiple_files = true;
+
+message AuthenticateRequest {
+    string uid = 1;
+    string token = 2;
+    int64 timestamp = 3;
+}
+
+message AuthenticateResponse {
+    int32 code = 1;
+    string message = 2;
+}
+
+
+
+
+
+
+
+
+
+
+

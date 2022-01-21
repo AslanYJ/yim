@@ -1,13 +1,12 @@
 package com.yjlan.im.client.handler;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.charset.StandardCharsets;
+import com.yjlan.im.common.protocol.MessageProtocol;
 
 /**
  * @author yjlan
@@ -17,7 +16,7 @@ import java.nio.charset.StandardCharsets;
  *
  * */
 
-public class IMClientHandler extends ChannelInboundHandlerAdapter {
+public class IMClientHandler extends SimpleChannelInboundHandler<MessageProtocol> {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(IMClientHandler.class);
 
@@ -25,17 +24,12 @@ public class IMClientHandler extends ChannelInboundHandlerAdapter {
     /**
      * 收到服务器的响应
      * @param ctx 对应的channel
-     * @param msg 消息
+     * @param messageProtocol 消息
      * @throws Exception 异常
      */
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf byteBuf = (ByteBuf) msg;
-        byte[] msgBuffer = new byte[byteBuf.readableBytes()];
-        // 将消息读到msgBuffer中
-        byteBuf.readBytes(msgBuffer);
-        String content = new String(msgBuffer, StandardCharsets.UTF_8);
-        LOGGER.info("从TCP服务器收到的消息为:" + content);
+    public void channelRead0(ChannelHandlerContext ctx, MessageProtocol messageProtocol) throws Exception {
+        LOGGER.info("从TCP服务器收到的消息为:" + messageProtocol);
     }
 
     @Override

@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Description 客户端
  * @date 2022.01.20 15:36
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.yjlan.im.*")
 public class ClientApplication implements CommandLineRunner {
     
     public static void main(String[] args) {

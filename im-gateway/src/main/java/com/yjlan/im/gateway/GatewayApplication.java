@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Description 传输层
  * @date 2022.01.20 15:47
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.yjlan.im.*")
 public class GatewayApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class);

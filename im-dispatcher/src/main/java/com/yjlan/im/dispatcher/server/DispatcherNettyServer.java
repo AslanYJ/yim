@@ -1,4 +1,4 @@
-package com.yjlan.im.gateway.server;
+package com.yjlan.im.dispatcher.server;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -21,19 +21,19 @@ import org.springframework.stereotype.Component;
 
 import com.yjlan.im.common.codec.MessageProtocolDecoder;
 import com.yjlan.im.common.codec.MessageProtocolEncoder;
-import com.yjlan.im.gateway.handler.GatewayTcpHandler;
+import com.yjlan.im.dispatcher.handler.DispatcherHandler;
 
 
 /**
  * @author yjlan
  * @version V1.0
- * @Description 网关Netty监控端口
+ * @Description 分发服务Netty监控端口
  * @date 2022.01.20 16:59
  */
 @Component
-public class GatewayNettyServer {
+public class DispatcherNettyServer {
     
-    private final Logger LOGGER = LoggerFactory.getLogger(GatewayNettyServer.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(DispatcherNettyServer.class);
     
     @Value("${netty.port}")
     private Integer nettyPort;
@@ -48,7 +48,6 @@ public class GatewayNettyServer {
      */
     private final EventLoopGroup workerGroup = new NioEventLoopGroup();
 
-    public static SocketChannel clientSocketChannel = null;
     
     
     @PostConstruct
@@ -67,7 +66,7 @@ public class GatewayNettyServer {
                             pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
                             pipeline.addLast(new MessageProtocolDecoder());
                             pipeline.addLast(new MessageProtocolEncoder());
-                            pipeline.addLast(new GatewayTcpHandler());
+                            pipeline.addLast(new DispatcherHandler());
                         }
                     });
             ChannelFuture channelFuture = serverBootstrap.bind(nettyPort).sync();
@@ -78,12 +77,6 @@ public class GatewayNettyServer {
             LOGGER.error("启动tcp gateway netty 服务失败 ");
         }
     }
-    
-    
-    public void sendMsg(String msg) {
-        clientSocketChannel.writeAndFlush(msg);
-    }
-    
     
     
     @PreDestroy
