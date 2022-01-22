@@ -1,6 +1,12 @@
 package com.yjlan.im.dispatcher.handler;
 
+import com.google.protobuf.MessageLite;
+import com.yjlan.im.common.proto.AuthenticateRequest;
+import com.yjlan.im.common.protocol.MessageHeader;
+import com.yjlan.im.common.protocol.MessageTypeManager;
 import com.yjlan.im.common.utils.ChannelIdUtils;
+import com.yjlan.im.common.utils.SpringBeanFactory;
+import com.yjlan.im.dispatcher.service.SsoService;
 import com.yjlan.im.dispatcher.session.GatewaySessionManager;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
@@ -40,6 +46,16 @@ public class DispatcherHandler extends SimpleChannelInboundHandler<MessageProtoc
     @Override
     public void channelRead0(ChannelHandlerContext channelHandlerContext, MessageProtocol messageProtocol) throws Exception {
         LOGGER.info("分发服务器收到的消息为:" + messageProtocol.getBody().toString());
+        MessageHeader header = messageProtocol.getHeader();
+        MessageLite body = messageProtocol.getBody();
+        // 认证请求，那么就访问sso系统认证
+        if (header.getMessageType() == MessageTypeManager.AUTHENTICATE_REQUEST.getMessageType()) {
+            SsoService ssoService = SpringBeanFactory.getBean(SsoService.class);
+            boolean authenticate = ssoService.authenticate((AuthenticateRequest) body);
+            if (authenticate) {
+                // 存入redis中
+            }
+        }
 
     }
 

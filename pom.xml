@@ -8,6 +8,7 @@
         <module>im-common</module>
         <module>im-gateway</module>
         <module>im-dispatcher</module>
+        <module>im-business</module>
     </modules>
 
     <parent>
