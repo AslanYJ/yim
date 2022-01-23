@@ -16,6 +16,24 @@ message AuthenticateResponse {
     string message = 2;
 }
 
+message MessageSendRequest {
+    string senderId = 1;
+    string receiverId = 2;
+    string message = 3;
+}
+
+message MessageSendResponse {
+    int32 code = 1;
+    string senderId = 1;
+    string receiverId = 2;
+    string message = 2;
+}
+
+message MessagePushRequest {
+    int senderId;
+
+}
+
 
 
 
