@@ -6,6 +6,10 @@ import org.slf4j.LoggerFactory;
 import com.google.protobuf.MessageLite;
 import com.yjlan.im.common.proto.AuthenticateRequest;
 import com.yjlan.im.common.proto.AuthenticateResponse;
+import com.yjlan.im.common.proto.MessagePushRequest;
+import com.yjlan.im.common.proto.MessagePushResponse;
+import com.yjlan.im.common.proto.MessageSendRequest;
+import com.yjlan.im.common.proto.MessageSendResponse;
 
 /**
  * @author yjlan
@@ -22,7 +26,25 @@ public enum MessageTypeManager {
     /**
      * 权限认证返回
      */
-    AUTHENTICATE_RESPONSE(2, AuthenticateResponse.getDefaultInstance())
+    AUTHENTICATE_RESPONSE(2, AuthenticateResponse.getDefaultInstance()),
+    
+    /**
+     * 单聊请求发送
+     */
+    MESSAGE_SEND_REQUEST(3, MessageSendRequest.getDefaultInstance()),
+    /**
+     * 单聊请求返回
+     *
+     */
+    MESSAGE_SEND_RESPONSE(4, MessageSendResponse.getDefaultInstance()),
+    /**
+     * 推送请求
+     */
+    MESSAGE_PUSH_REQUEST(5, MessagePushRequest.getDefaultInstance()),
+    /**
+     * 推送返回
+     */
+    MESSAGE_PUSH_RESPONSE(6, MessagePushResponse.getDefaultInstance())
     ;
     private final static Logger LOGGER = LoggerFactory.getLogger(MessageTypeManager.class);
     

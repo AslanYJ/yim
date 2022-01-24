@@ -1,9 +1,11 @@
 package com.yjlan.im.gateway.dispatcher;
 
+import com.google.protobuf.MessageLite;
 import com.yjlan.im.common.codec.MessageProtocolDecoder;
 import com.yjlan.im.common.codec.MessageProtocolEncoder;
 import com.yjlan.im.common.constants.Constant;
 import com.yjlan.im.common.proto.AuthenticateRequest;
+import com.yjlan.im.common.proto.MessageSendRequest;
 import com.yjlan.im.common.route.ChooseServerHandle;
 import com.yjlan.im.common.route.RandomHandle;
 import com.yjlan.im.common.utils.ChannelIdUtils;
@@ -125,11 +127,13 @@ public class DispatcherManager {
     /**
      * 发送认证信息到分发系统
      * @param clientChannel 客户端的channel
-     * @param authenticateRequest 认证请求
+     * @param request 认证请求
      */
-    public void authenticate(SocketChannel clientChannel,AuthenticateRequest authenticateRequest) {
+    public void forwardToDispatcher(SocketChannel clientChannel, MessageLite request) {
         // 选择一台服务器
         String server = this.chooseServer(ChannelIdUtils.getChannelId(clientChannel));
-        MessageProtocolUtils.sendMsg(getSocketChannel(server),authenticateRequest);
+        MessageProtocolUtils.sendMsg(getSocketChannel(server),request);
     }
+    
+ 
 }

@@ -5,6 +5,7 @@ import com.yjlan.im.common.protocol.MessageHeader;
 import com.yjlan.im.common.protocol.MessageTypeManager;
 import com.yjlan.im.common.utils.SpringBeanFactory;
 import com.yjlan.im.gateway.dispatcher.DispatcherManager;
+import com.yjlan.im.gateway.processor.MessageProcessorFactory;
 import com.yjlan.im.gateway.session.SessionManager;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -12,7 +13,6 @@ import io.netty.channel.socket.SocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.yjlan.im.common.protocol.MessageProtocol;
-import com.yjlan.im.gateway.server.GatewayNettyServer;
 
 /**
  * @author yjlan
@@ -48,9 +48,13 @@ public class GatewayTcpHandler extends SimpleChannelInboundHandler<MessageProtoc
             // 这里如果认证通过的话，会在dispatcher中增加一个缓存
             AuthenticateRequest request = (AuthenticateRequest)msg.getBody();
             LOGGER.info(request.toString());
-            dispatcherManager.authenticate((SocketChannel) ctx.channel(),request);
+            dispatcherManager.forwardToDispatcher((SocketChannel) ctx.channel(),request);
             SessionManager.put(request.getUid(),(SocketChannel) ctx.channel());
         }
+        MessageProcessorFactory messageProcessorFactory = SpringBeanFactory.getBean(MessageProcessorFactory.class);
+        messageProcessorFactory.getMessageProcessor(header.getMessageType())
+                .process(msg,ctx);
+        
     }
 
 

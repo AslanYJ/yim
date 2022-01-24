@@ -16,10 +16,11 @@ import com.yjlan.im.common.protocol.MessageProtocol;
  *
  * */
 
-public class IMClientHandler extends SimpleChannelInboundHandler<MessageProtocol> {
+public class ImClientHandler extends SimpleChannelInboundHandler<MessageProtocol> {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(IMClientHandler.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(ImClientHandler.class);
 
+    
 
     /**
      * 收到服务器的响应
@@ -46,6 +47,7 @@ public class IMClientHandler extends SimpleChannelInboundHandler<MessageProtocol
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         LOGGER.info("client 和服务器断开连接");
+        // todo 重新连接
     }
 
 }

@@ -31,6 +31,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <swagger.version>2.5.0</swagger.version>
+        <rocketmq.version>2.0.3</rocketmq.version>
     </properties>
 
 
@@ -95,7 +96,11 @@
                 <artifactId>okhttp</artifactId>
                 <version>3.3.1</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

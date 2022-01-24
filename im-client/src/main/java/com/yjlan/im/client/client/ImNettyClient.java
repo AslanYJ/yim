@@ -1,14 +1,16 @@
 package com.yjlan.im.client.client;
 
-import com.yjlan.im.client.handler.IMClientHandler;
+import com.yjlan.im.client.config.ClientConfig;
+import com.yjlan.im.client.handler.ImClientHandler;
 import com.yjlan.im.common.codec.MessageProtocolDecoder;
 import com.yjlan.im.common.codec.MessageProtocolEncoder;
 
+import com.yjlan.im.common.constants.ImBusinessCode;
+import com.yjlan.im.common.exception.ImException;
 import com.yjlan.im.common.proto.AuthenticateRequest;
+import com.yjlan.im.common.proto.MessageSendRequest;
 import com.yjlan.im.common.utils.MessageProtocolUtils;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufAllocator;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
@@ -18,12 +20,10 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.nio.charset.Charset;
-import java.util.Map;
+import javax.annotation.Resource;
 
 /**
  * @author yjlan
@@ -32,15 +32,12 @@ import java.util.Map;
  * @date 2022.01.20 15:36
  */
 @Component
-public class IMNettyClient {
+public class ImNettyClient {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(IMNettyClient.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ImNettyClient.class);
 
-    @Value("${connect.gateway.ip}")
-    private String ip;
-
-    @Value("${connect.gateway.port}")
-    private Integer port;
+    @Resource
+    private ClientConfig clientConfig;
 
     /**
      * 和客户端连接的工作线程
@@ -51,6 +48,8 @@ public class IMNettyClient {
      * 和服务器连接的channel
      */
     private SocketChannel socketChannel;
+    
+    private Boolean isAuthenticate = true;
 
 
     @PostConstruct
@@ -71,11 +70,11 @@ public class IMNettyClient {
                         // 二次解码器
                         pipeline.addLast(new MessageProtocolDecoder());
                         pipeline.addLast(new MessageProtocolEncoder());
-                        pipeline.addLast(new IMClientHandler());
+                        pipeline.addLast(new ImClientHandler());
                     }
                 });
         // 尝试发起连接
-        ChannelFuture channelFuture = bootstrap.connect(ip, port);
+        ChannelFuture channelFuture = bootstrap.connect(clientConfig.getIp(), clientConfig.getPort());
         // 给异步化的连接请求加入监听器
         channelFuture.addListener((ChannelFutureListener) channelFuture1 -> {
             if (channelFuture1.isSuccess()) {
@@ -87,13 +86,36 @@ public class IMNettyClient {
             }
         });
     }
-
-
-    public void sendMsg(String msg) {
+    
+    
+    /**
+     * 认证请求
+     * @param token 对应的token
+     */
+    public void authenticate(String token) {
         AuthenticateRequest request = AuthenticateRequest.newBuilder()
-                .setToken(msg)
-                .setUid(msg)
+                .setToken(token)
+                .setUid(token)
                 .setTimestamp(System.currentTimeMillis()).build();
+        MessageProtocolUtils.sendMsg(socketChannel,request);
+    }
+    
+    
+    /**
+     * 单聊
+     * @param receiverId 接收人
+     * @param sendContent 内容
+     */
+    public void sendMessagePeer2Peer(String receiverId,String sendContent) {
+        if (!isAuthenticate) {
+            throw new ImException(ImBusinessCode.AUTHENTICATE_FAIL,"用户没有认证");
+        }
+        
+        MessageSendRequest request = MessageSendRequest.newBuilder()
+                .setSenderId(clientConfig.getUserId())
+                .setReceiverId(receiverId)
+                .setSendContent(sendContent)
+                .build();
         MessageProtocolUtils.sendMsg(socketChannel,request);
     }
 

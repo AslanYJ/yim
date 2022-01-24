@@ -18,4 +18,9 @@ public class ImBusinessCode {
      * 异常码
      */
     public static final int COMMON_EXCEPTION_CODE = 1000;
+    
+    /**
+     * 认证失败
+     */
+    public static final int AUTHENTICATE_FAIL = 2001;
 }

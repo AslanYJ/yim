@@ -6,7 +6,8 @@ import com.yjlan.im.common.protocol.MessageHeader;
 import com.yjlan.im.common.protocol.MessageTypeManager;
 import com.yjlan.im.common.utils.ChannelIdUtils;
 import com.yjlan.im.common.utils.SpringBeanFactory;
-import com.yjlan.im.dispatcher.service.SsoService;
+import com.yjlan.im.dispatcher.service.processor.DispatcherMessageProcessorFactory;
+import com.yjlan.im.dispatcher.service.sso.SsoService;
 import com.yjlan.im.dispatcher.session.GatewaySessionManager;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
@@ -15,6 +16,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.SocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import com.yjlan.im.common.protocol.MessageProtocol;
 
@@ -30,6 +32,8 @@ public class DispatcherHandler extends SimpleChannelInboundHandler<MessageProtoc
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherHandler.class);
 
+    
+    
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         LOGGER.info("已经跟gateway建立连接，gateway地址为,msg：{}", ctx.channel().remoteAddress().toString());
@@ -44,10 +48,10 @@ public class DispatcherHandler extends SimpleChannelInboundHandler<MessageProtoc
     }
 
     @Override
-    public void channelRead0(ChannelHandlerContext channelHandlerContext, MessageProtocol messageProtocol) throws Exception {
-        LOGGER.info("分发服务器收到的消息为:" + messageProtocol.getBody().toString());
-        MessageHeader header = messageProtocol.getHeader();
-        MessageLite body = messageProtocol.getBody();
+    public void channelRead0(ChannelHandlerContext ctx, MessageProtocol msg) throws Exception {
+        LOGGER.info("分发服务器收到的消息为:" + msg.getBody().toString());
+        MessageHeader header = msg.getHeader();
+        MessageLite body = msg.getBody();
         // 认证请求，那么就访问sso系统认证
         if (header.getMessageType() == MessageTypeManager.AUTHENTICATE_REQUEST.getMessageType()) {
             SsoService ssoService = SpringBeanFactory.getBean(SsoService.class);
@@ -56,7 +60,11 @@ public class DispatcherHandler extends SimpleChannelInboundHandler<MessageProtoc
                 // 存入redis中
             }
         }
-
+        
+        DispatcherMessageProcessorFactory messageProcessorFactory = SpringBeanFactory
+                .getBean(DispatcherMessageProcessorFactory.class);
+        messageProcessorFactory.getMessageProcessor(header.getMessageType())
+                .process(msg,ctx);
     }
 
 

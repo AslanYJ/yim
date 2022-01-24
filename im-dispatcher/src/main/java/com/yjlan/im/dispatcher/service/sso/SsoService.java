@@ -1,4 +1,4 @@
-package com.yjlan.im.dispatcher.service;
+package com.yjlan.im.dispatcher.service.sso;
 
 import com.yjlan.im.common.proto.AuthenticateRequest;
 import org.springframework.stereotype.Service;

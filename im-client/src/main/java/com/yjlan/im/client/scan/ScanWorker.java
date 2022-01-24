@@ -1,6 +1,6 @@
 package com.yjlan.im.client.scan;
 
-import com.yjlan.im.client.client.IMNettyClient;
+import com.yjlan.im.client.client.ImNettyClient;
 import com.yjlan.im.common.utils.SpringBeanFactory;
 
 import org.slf4j.Logger;
@@ -19,10 +19,10 @@ public class ScanWorker extends Thread{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ScanWorker.class);
 
-    private IMNettyClient imNettyClient;
+    private ImNettyClient imNettyClient;
 
     public ScanWorker() {
-        this.imNettyClient = SpringBeanFactory.getBean(IMNettyClient.class);
+        this.imNettyClient = SpringBeanFactory.getBean(ImNettyClient.class);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ScanWorker extends Thread{
         Scanner sc = new Scanner(System.in);
         while (true) {
             String msg = sc.nextLine();
-            imNettyClient.sendMsg(msg);
+            imNettyClient.authenticate(msg);
             LOGGER.info("msg :{}",msg);
         }
     }
