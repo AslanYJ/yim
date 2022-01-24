@@ -51,15 +51,14 @@ public class DispatcherHandler extends SimpleChannelInboundHandler<MessageProtoc
     public void channelRead0(ChannelHandlerContext ctx, MessageProtocol msg) throws Exception {
         LOGGER.info("分发服务器收到的消息为:" + msg.getBody().toString());
         MessageHeader header = msg.getHeader();
-        MessageLite body = msg.getBody();
         // 认证请求，那么就访问sso系统认证
-        if (header.getMessageType() == MessageTypeManager.AUTHENTICATE_REQUEST.getMessageType()) {
-            SsoService ssoService = SpringBeanFactory.getBean(SsoService.class);
-            boolean authenticate = ssoService.authenticate((AuthenticateRequest) body);
-            if (authenticate) {
-                // 存入redis中
-            }
-        }
+//        if (header.getMessageType() == MessageTypeManager.AUTHENTICATE_REQUEST.getMessageType()) {
+//            SsoService ssoService = SpringBeanFactory.getBean(SsoService.class);
+//            boolean authenticate = ssoService.authenticate((AuthenticateRequest) body);
+//            if (authenticate) {
+//                // 存入redis中
+//            }
+//        }
         
         DispatcherMessageProcessorFactory messageProcessorFactory = SpringBeanFactory
                 .getBean(DispatcherMessageProcessorFactory.class);

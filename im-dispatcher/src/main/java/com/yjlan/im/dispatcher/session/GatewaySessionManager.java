@@ -19,6 +19,9 @@ public class GatewaySessionManager {
     private static final Map<String, SocketChannel> GATEWAY_CONNECT_CHANNEL =
             new ConcurrentHashMap<>(Constant.DEFAULT_HASH_MAP_SIZE);
 
+    public static SocketChannel getGatewayChannel(String gatewayChannelId) {
+        return GATEWAY_CONNECT_CHANNEL.get(gatewayChannelId);
+    }
 
     public static void put(SocketChannel socketChannel) {
         GATEWAY_CONNECT_CHANNEL.put(ChannelIdUtils.getChannelId(socketChannel),socketChannel);

@@ -23,4 +23,11 @@ public class ImBusinessCode {
      * 认证失败
      */
     public static final int AUTHENTICATE_FAIL = 2001;
+
+    /**
+     * 消息已读
+     */
+    public static final int MESSAGE_READ_SUCCESS = 3000;
+
+    public static final int MESSAGE_READ_FAIL = 3001;
 }
