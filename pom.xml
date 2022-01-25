@@ -9,6 +9,7 @@
         <module>im-gateway</module>
         <module>im-dispatcher</module>
         <module>im-business</module>
+        <module>im-message-push</module>
     </modules>
 
     <parent>
