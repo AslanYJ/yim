@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
 import com.yjlan.im.common.mq.RocketMqConstant;
-import com.yjlan.im.common.mq.RocketMqProducer;
 import com.yjlan.im.common.proto.MessageSendRequest;
 import com.yjlan.im.common.protocol.MessageProtocol;
 import com.yjlan.im.common.protocol.MessageTypeManager;
+import com.yjlan.im.dispatcher.service.mq.RocketMqProducer;
 
 /**
  * @author yjlan

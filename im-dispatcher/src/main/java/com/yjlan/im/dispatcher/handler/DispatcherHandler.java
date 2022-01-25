@@ -1,13 +1,9 @@
 package com.yjlan.im.dispatcher.handler;
 
-import com.google.protobuf.MessageLite;
-import com.yjlan.im.common.proto.AuthenticateRequest;
 import com.yjlan.im.common.protocol.MessageHeader;
-import com.yjlan.im.common.protocol.MessageTypeManager;
 import com.yjlan.im.common.utils.ChannelIdUtils;
 import com.yjlan.im.common.utils.SpringBeanFactory;
 import com.yjlan.im.dispatcher.service.processor.DispatcherMessageProcessorFactory;
-import com.yjlan.im.dispatcher.service.sso.SsoService;
 import com.yjlan.im.dispatcher.session.GatewaySessionManager;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
@@ -16,7 +12,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.SocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 
 import com.yjlan.im.common.protocol.MessageProtocol;
 

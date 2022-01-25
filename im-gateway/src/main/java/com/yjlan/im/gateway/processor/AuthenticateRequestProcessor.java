@@ -33,7 +33,7 @@ public class AuthenticateRequestProcessor implements MessageProcessor{
     public void process(MessageProtocol message, ChannelHandlerContext ctx) {
         AuthenticateRequest request = (AuthenticateRequest) message.getBody();
         // 这里如果认证通过的话，会在dispatcher中增加一个缓存
-        LOGGER.info(message.toString());
+        LOGGER.info("auth msg :{}",message.toString());
         dispatcherManager.forwardToDispatcher((SocketChannel) ctx.channel(),request);
         SessionManager.put(request.getUid(),(SocketChannel) ctx.channel());
     }

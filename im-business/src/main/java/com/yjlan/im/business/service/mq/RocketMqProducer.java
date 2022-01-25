@@ -1,4 +1,4 @@
-package com.yjlan.im.common.mq;
+package com.yjlan.im.business.service.mq;
 
 import javax.annotation.Resource;
 

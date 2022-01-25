@@ -1,9 +1,20 @@
 package com.yjlan.im.gateway.handler;
 
+
+import com.yjlan.im.common.proto.MessagePushRequest;
+import com.yjlan.im.common.protocol.MessageHeader;
 import com.yjlan.im.common.protocol.MessageProtocol;
+import com.yjlan.im.common.protocol.MessageTypeManager;
+import com.yjlan.im.common.utils.MessageProtocolUtils;
+import com.yjlan.im.common.utils.SpringBeanFactory;
+import com.yjlan.im.gateway.processor.MessageProcessorFactory;
+import com.yjlan.im.gateway.session.SessionManager;
+
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.socket.SocketChannel;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,9 +36,11 @@ public class GatewayDispatcherHandler extends SimpleChannelInboundHandler<Messag
     }
 
     @Override
-    public void channelRead0(ChannelHandlerContext channelHandlerContext, MessageProtocol messageProtocol) throws Exception {
-        LOGGER.info("分发服务器收到的消息为:" + messageProtocol);
-     
+    public void channelRead0(ChannelHandlerContext ctx, MessageProtocol messageProtocol) throws Exception {
+        final MessageHeader header = messageProtocol.getHeader();
+        MessageProcessorFactory messageProcessorFactory = SpringBeanFactory.getBean(MessageProcessorFactory.class);
+        messageProcessorFactory.getMessageProcessor(header.getMessageType())
+                .process(messageProtocol,ctx);
     }
     
     

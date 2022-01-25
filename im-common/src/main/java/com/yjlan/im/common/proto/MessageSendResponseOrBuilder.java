@@ -21,4 +21,29 @@ public interface MessageSendResponseOrBuilder extends
    */
   com.google.protobuf.ByteString
       getMessageBytes();
+
+  /**
+   * <code>optional string senderId = 3;</code>
+   */
+  java.lang.String getSenderId();
+  /**
+   * <code>optional string senderId = 3;</code>
+   */
+  com.google.protobuf.ByteString
+      getSenderIdBytes();
+
+  /**
+   * <code>optional string receiverId = 4;</code>
+   */
+  java.lang.String getReceiverId();
+  /**
+   * <code>optional string receiverId = 4;</code>
+   */
+  com.google.protobuf.ByteString
+      getReceiverIdBytes();
+
+  /**
+   * <code>optional int64 timestamp = 5;</code>
+   */
+  long getTimestamp();
 }

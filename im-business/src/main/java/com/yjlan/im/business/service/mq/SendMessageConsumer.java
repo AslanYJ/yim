@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.yjlan.im.business.dao.PeerToPeerMessageDao;
 import com.yjlan.im.business.entity.PeerToPeerMsg;
 import com.yjlan.im.common.mq.RocketMqConstant;
-import com.yjlan.im.common.mq.RocketMqProducer;
+
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;

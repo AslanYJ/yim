@@ -54,6 +54,10 @@ public class PushMessageConsumer implements RocketMQListener<MessageExt> {
                     .setSendContent(jsonObject.getString("sendContent"))
                     .setTimestamp(System.currentTimeMillis())
                     .build();
+            if (gatewaySocketChannel == null) {
+                LOGGER.error("gatewayChannelId is null id:{}",gatewayChannelId);
+                return;
+            }
             MessageProtocolUtils.sendMsg(gatewaySocketChannel,messagePushRequest);
         } else {
             LOGGER.error("gatewayChannelId is null");

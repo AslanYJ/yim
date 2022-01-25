@@ -1,9 +1,9 @@
 package com.yjlan.im.client.handler;
 
-import com.google.protobuf.MessageLite;
 import com.yjlan.im.common.constants.ImBusinessCode;
 import com.yjlan.im.common.proto.MessagePushRequest;
 import com.yjlan.im.common.proto.MessagePushResponse;
+import com.yjlan.im.common.proto.MessageSendResponse;
 import com.yjlan.im.common.protocol.MessageHeader;
 import com.yjlan.im.common.protocol.MessageTypeManager;
 import com.yjlan.im.common.utils.MessageProtocolUtils;
@@ -38,12 +38,11 @@ public class ImClientHandler extends SimpleChannelInboundHandler<MessageProtocol
      */
     @Override
     public void channelRead0(ChannelHandlerContext ctx, MessageProtocol messageProtocol) throws Exception {
-        LOGGER.info("从TCP服务器收到的消息为:" + messageProtocol);
         MessageHeader header = messageProtocol.getHeader();
         // 推送消息的请求
         if (header.getMessageType() == MessageTypeManager.MESSAGE_PUSH_REQUEST.getMessageType()) {
             MessagePushRequest messagePushRequest = (MessagePushRequest) messageProtocol.getBody();
-            LOGGER.info("messageId:{},senderId:{},receiverId:{},sendContent:{}",
+            LOGGER.info("receive message messageId:{},senderId:{},receiverId:{},sendContent:{}",
                     messagePushRequest.getMessageId(),
                     messagePushRequest.getSenderId(),
                     messagePushRequest.getReceiverId(),
@@ -55,6 +54,9 @@ public class ImClientHandler extends SimpleChannelInboundHandler<MessageProtocol
                     .setMessage("消息读取成功！")
                     .build();
             MessageProtocolUtils.sendMsg((SocketChannel) ctx.channel(),messagePushResponse);
+        } else if (header.getMessageType() == MessageTypeManager.MESSAGE_SEND_RESPONSE.getMessageType()) {
+            MessageSendResponse messageSendResponse = (MessageSendResponse) messageProtocol.getBody();
+            LOGGER.info("get send message response,msg:{}",messageSendResponse.toString());
         }
     }
 

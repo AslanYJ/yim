@@ -34,4 +34,8 @@ public class PeerToPeerMessageDao {
             peerToPeerMsgMapper.updateByPrimaryKeySelective(peerToPeerMsg);
         }
     }
+    
+    public PeerToPeerMsg getById(Long messageId) {
+        return peerToPeerMsgMapper.selectByPrimaryKey(messageId);
+    }
 }

@@ -30,7 +30,16 @@ public class ScanWorker extends Thread{
         Scanner sc = new Scanner(System.in);
         while (true) {
             String msg = sc.nextLine();
-            imNettyClient.authenticate(msg);
+            String[] strings = msg.split("-");
+            String commandType = strings[0];
+            if (commandType.equals("auth")) {
+                imNettyClient.authenticate(strings[1]);
+            } else if (commandType.equals("send")){
+                String receiverId = strings[1];
+                String message = strings[2];
+                imNettyClient.sendMessagePeer2Peer(receiverId,message);
+            }
+          
             LOGGER.info("msg :{}",msg);
         }
     }

@@ -58,14 +58,15 @@ public final class Im {
       "\"5\n\024AuthenticateResponse\022\014\n\004code\030\001 \001(\005\022\017" +
       "\n\007message\030\002 \001(\t\"O\n\022MessageSendRequest\022\020\n" +
       "\010senderId\030\001 \001(\t\022\022\n\nreceiverId\030\002 \001(\t\022\023\n\013s" +
-      "endContent\030\003 \001(\t\"4\n\023MessageSendResponse\022" +
-      "\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 \001(\t\"u\n\022Messag" +
-      "ePushRequest\022\021\n\tmessageId\030\001 \001(\003\022\020\n\010sende" +
-      "rId\030\002 \001(\t\022\022\n\nreceiverId\030\003 \001(\t\022\023\n\013sendCon" +
-      "tent\030\004 \001(\t\022\021\n\ttimestamp\030\005 \001(\003\"G\n\023Message",
-      "PushResponse\022\014\n\004code\030\001 \001(\005\022\021\n\tmessageId\030" +
-      "\002 \001(\003\022\017\n\007message\030\003 \001(\tB\035\n\031com.yjlan.im.c" +
-      "ommon.protoP\001b\006proto3"
+      "endContent\030\003 \001(\t\"m\n\023MessageSendResponse\022" +
+      "\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 \001(\t\022\020\n\010sender" +
+      "Id\030\003 \001(\t\022\022\n\nreceiverId\030\004 \001(\t\022\021\n\ttimestam" +
+      "p\030\005 \001(\003\"u\n\022MessagePushRequest\022\021\n\tmessage" +
+      "Id\030\001 \001(\003\022\020\n\010senderId\030\002 \001(\t\022\022\n\nreceiverId",
+      "\030\003 \001(\t\022\023\n\013sendContent\030\004 \001(\t\022\021\n\ttimestamp" +
+      "\030\005 \001(\003\"G\n\023MessagePushResponse\022\014\n\004code\030\001 " +
+      "\001(\005\022\021\n\tmessageId\030\002 \001(\003\022\017\n\007message\030\003 \001(\tB" +
+      "\035\n\031com.yjlan.im.common.protoP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -102,7 +103,7 @@ public final class Im {
     internal_static_MessageSendResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MessageSendResponse_descriptor,
-        new java.lang.String[] { "Code", "Message", });
+        new java.lang.String[] { "Code", "Message", "SenderId", "ReceiverId", "Timestamp", });
     internal_static_MessagePushRequest_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_MessagePushRequest_fieldAccessorTable = new

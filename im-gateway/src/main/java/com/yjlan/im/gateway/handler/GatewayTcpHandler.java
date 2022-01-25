@@ -39,18 +39,8 @@ public class GatewayTcpHandler extends SimpleChannelInboundHandler<MessageProtoc
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, MessageProtocol msg) throws Exception {
-        LOGGER.info("tcp服务器收到的消息为:" + msg);
         // 首先需要认证一下是否已经登录拿到对应的token,进行认证
         MessageHeader header = msg.getHeader();
-        // 如果是认证请求
-        if (header.getMessageType() == MessageTypeManager.AUTHENTICATE_REQUEST.getMessageType()) {
-            DispatcherManager dispatcherManager = SpringBeanFactory.getBean(DispatcherManager.class);
-            // 这里如果认证通过的话，会在dispatcher中增加一个缓存
-            AuthenticateRequest request = (AuthenticateRequest)msg.getBody();
-            LOGGER.info(request.toString());
-            dispatcherManager.forwardToDispatcher((SocketChannel) ctx.channel(),request);
-            SessionManager.put(request.getUid(),(SocketChannel) ctx.channel());
-        }
         MessageProcessorFactory messageProcessorFactory = SpringBeanFactory.getBean(MessageProcessorFactory.class);
         messageProcessorFactory.getMessageProcessor(header.getMessageType())
                 .process(msg,ctx);

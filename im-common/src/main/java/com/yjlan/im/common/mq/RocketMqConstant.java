@@ -19,13 +19,30 @@ public class RocketMqConstant {
     public static final String PUSH_MESSAGE  = "push_message";
     
     /**
+     * 推送消息的响应
+     */
+    public static final String PUSH_MESSAGE_RESPONSE = "push_message_response";
+    
+    /**
+     * 发送消息的response
+     */
+    public static final String SEND_MESSAGE_RESPONSE = "send_message_response";
+    
+    /**
      * send_message topic的消费组
      */
     public static final String SEND_MESSAGE_GROUP = "send_message_group";
 
-
+    
+    
     /**
      * push_message topic的消费组(这个topic应该独立成一个消息推送服务，目前为了简单，合并在请求分发服务)
      */
     public static final String PUSH_MESSAGE_GROUP = "push_message_group";
+    
+    
+    public static final String PUSH_MESSAGE_RESPONSE_GROUP = "push_message_response_group";
+    
+    
+    public static final String SEND_MESSAGE_RESPONSE_GROUP = "send_message_response_group";
 }

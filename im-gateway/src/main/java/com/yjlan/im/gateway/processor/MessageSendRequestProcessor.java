@@ -24,6 +24,11 @@ public class MessageSendRequestProcessor implements MessageProcessor{
     @Resource
     private DispatcherManager dispatcherManager;
     
+    /**
+     * 这里的ctx channel是 client的channel
+     * @param message 请求/响应等等
+     * @param ctx channel的管理器
+     */
     @Override
     public void process(MessageProtocol message, ChannelHandlerContext ctx) {
         MessageSendRequest sendRequest = (MessageSendRequest) message.getBody();

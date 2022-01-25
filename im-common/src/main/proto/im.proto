@@ -25,6 +25,9 @@ message MessageSendRequest {
 message MessageSendResponse {
     int32 code = 1;
     string message = 2;
+    string senderId = 3;
+    string receiverId = 4;
+    int64 timestamp = 5;
 
 }
 

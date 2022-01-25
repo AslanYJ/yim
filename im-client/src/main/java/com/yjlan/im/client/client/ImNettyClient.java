@@ -95,7 +95,7 @@ public class ImNettyClient {
     public void authenticate(String token) {
         AuthenticateRequest request = AuthenticateRequest.newBuilder()
                 .setToken(token)
-                .setUid(token)
+                .setUid(clientConfig.getUserId())
                 .setTimestamp(System.currentTimeMillis()).build();
         MessageProtocolUtils.sendMsg(socketChannel,request);
     }

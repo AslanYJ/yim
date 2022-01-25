@@ -7,6 +7,8 @@ import io.netty.channel.socket.SocketChannel;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.util.StringUtils;
+
 /**
  * 管理session
  * @author yjlan
@@ -61,10 +63,14 @@ public class SessionManager {
      */
     public static void remove(SocketChannel socketChannel) {
         String channelId = ChannelIdUtils.getChannelId(socketChannel);
-        String uid = SOCKET_CHANNEL_UID_CACHE.get(channelId);
-        SOCKET_CHANNEL_UID_CACHE.remove(channelId);
-        USER_SOCKET_CHANNEL_CACHE.remove(uid);
-
+        if (!StringUtils.isEmpty(channelId)) {
+            String uid = SOCKET_CHANNEL_UID_CACHE.get(channelId);
+            SOCKET_CHANNEL_UID_CACHE.remove(channelId);
+            if (uid != null) {
+                USER_SOCKET_CHANNEL_CACHE.remove(uid);
+            }
+            
+        }
     }
 
 

@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author yjlan
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.yjlan.im.*")
 @MapperScan(basePackages = "mapper")
 public class BusinessApplication {
 

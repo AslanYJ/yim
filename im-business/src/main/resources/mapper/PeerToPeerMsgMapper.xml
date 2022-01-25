@@ -48,7 +48,8 @@
       #{isReaded,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP}, 
       #{sendContent,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.yjlan.im.business.entity.PeerToPeerMsg">
+  <insert id="insertSelective" parameterType="com.yjlan.im.business.entity.PeerToPeerMsg"
+  useGeneratedKeys="true" keyProperty="id">
     insert into peer_to_peer_msg
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

@@ -4,8 +4,6 @@ import com.google.protobuf.MessageLite;
 import com.yjlan.im.common.codec.MessageProtocolDecoder;
 import com.yjlan.im.common.codec.MessageProtocolEncoder;
 import com.yjlan.im.common.constants.Constant;
-import com.yjlan.im.common.proto.AuthenticateRequest;
-import com.yjlan.im.common.proto.MessageSendRequest;
 import com.yjlan.im.common.route.ChooseServerHandle;
 import com.yjlan.im.common.route.RandomHandle;
 import com.yjlan.im.common.utils.ChannelIdUtils;

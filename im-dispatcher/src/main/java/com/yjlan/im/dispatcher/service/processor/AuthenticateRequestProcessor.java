@@ -56,12 +56,13 @@ public class AuthenticateRequestProcessor implements DispatcherMessageProcessor 
     }
 
     private void saveSession(AuthenticateRequest request,String gatewayChannelId) {
+        
         redisTemplate.opsForHash().put(RedisPrefixConstant.USER_SESSION
                 + request.getUid(),"token",request.getToken());
         redisTemplate.opsForHash().put(RedisPrefixConstant.USER_SESSION
-                + request.getUid(),"timestamp",request.getTimestamp());
+                + request.getUid(),"timestamp",String.valueOf(request.getTimestamp()));
         redisTemplate.opsForHash().put(RedisPrefixConstant.USER_SESSION
-        + request.getUid(),"isAuthenticated",true);
+        + request.getUid(),"isAuthenticated",String.valueOf(true));
         redisTemplate.opsForHash().put(RedisPrefixConstant.USER_SESSION
         + request.getUid(),"gatewayChannelId",gatewayChannelId);
 
