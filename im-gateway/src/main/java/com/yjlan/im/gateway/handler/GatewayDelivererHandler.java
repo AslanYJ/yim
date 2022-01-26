@@ -4,16 +4,13 @@ package com.yjlan.im.gateway.handler;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.socket.SocketChannel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.yjlan.im.common.protocol.MessageHeader;
 import com.yjlan.im.common.protocol.MessageProtocol;
-import com.yjlan.im.common.utils.ChannelIdUtils;
 import com.yjlan.im.common.utils.SpringBeanFactory;
-import com.yjlan.im.gateway.dispatcher.DispatcherManager;
 import com.yjlan.im.gateway.processor.MessageProcessorFactory;
 
 
@@ -24,28 +21,15 @@ import com.yjlan.im.gateway.processor.MessageProcessorFactory;
  * @date 2022.01.20 17:20
  */
 @Sharable
-public class GatewayDispatcherHandler extends SimpleChannelInboundHandler<MessageProtocol> {
+public class GatewayDelivererHandler extends SimpleChannelInboundHandler<MessageProtocol> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GatewayDispatcherHandler.class);
-    
-    
+    private static final Logger LOGGER = LoggerFactory.getLogger(GatewayDelivererHandler.class);
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        LOGGER.info("已经跟Dispatcher建立连接，客户端地址为：" + ctx.channel());
-        LOGGER.info("dispatcher channelId:" + ChannelIdUtils.getChannelId((
-                SocketChannel
-                ) ctx.channel()));
+        LOGGER.info("已经跟deliverer建立连接，客户端地址为：+ ctx.channel()");
     }
-    
-    @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        SocketChannel socketChannel = (SocketChannel) ctx.channel();
-        LOGGER.info("和dispatcher断开连接... channelId:{}",ChannelIdUtils.getChannelId(socketChannel));
-        DispatcherManager dispatcherManager = SpringBeanFactory.getBean(DispatcherManager.class);
-        dispatcherManager.remove(socketChannel);
-        
-    }
-    
+
     @Override
     public void channelRead0(ChannelHandlerContext ctx, MessageProtocol messageProtocol) throws Exception {
         final MessageHeader header = messageProtocol.getHeader();

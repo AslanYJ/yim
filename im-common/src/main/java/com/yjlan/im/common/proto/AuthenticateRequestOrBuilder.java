@@ -31,4 +31,14 @@ public interface AuthenticateRequestOrBuilder extends
    * <code>optional int64 timestamp = 3;</code>
    */
   long getTimestamp();
+
+  /**
+   * <code>optional string instanceCode = 4;</code>
+   */
+  java.lang.String getInstanceCode();
+  /**
+   * <code>optional string instanceCode = 4;</code>
+   */
+  com.google.protobuf.ByteString
+      getInstanceCodeBytes();
 }

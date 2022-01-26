@@ -36,11 +36,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class DispatcherManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherManager.class);
-
-    /**
-     * 保存和所有的dispatcher的连接
-     */
-    private static final List<String> CONNECT_DISPATCHER = new CopyOnWriteArrayList<>();
+    
 
     /**
      * uuid和分发系统对应的channel。key:dispatcher服务器的地址
@@ -67,7 +63,6 @@ public class DispatcherManager {
             bootstrap.group(threadGroup)
                     .channel(NioSocketChannel.class)
                     .option(ChannelOption.TCP_NODELAY, true)
-                    .option(ChannelOption.SO_KEEPALIVE, true)
                     .handler(new ChannelInitializer<io.netty.channel.socket.SocketChannel>() {
 
                         @Override
@@ -87,7 +82,6 @@ public class DispatcherManager {
             // 给异步化的连接请求加入监听器
             channelFuture.addListener((ChannelFutureListener) channelFuture1 -> {
                 if (channelFuture1.isSuccess()) {
-                    CONNECT_DISPATCHER.add(dispatcherAddress);
                     SocketChannel socketChannel = (SocketChannel) channelFuture1.channel();
                     GATEWAY_CONNECT_DISPATCHER_MAP.put(dispatcherAddress,
                             socketChannel);
@@ -107,7 +101,8 @@ public class DispatcherManager {
      */
     public String chooseServer(String key) {
         ChooseServerHandle chooseServerHandle = new RandomHandle();
-        return chooseServerHandle.chooseServer(CONNECT_DISPATCHER, key);
+        return chooseServerHandle.chooseServer(
+                new ArrayList<>(GATEWAY_CONNECT_DISPATCHER_MAP.keySet()), key);
     }
 
 
@@ -134,4 +129,8 @@ public class DispatcherManager {
     }
     
  
+    
+    public void remove(SocketChannel socketChannel) {
+        GATEWAY_CONNECT_DISPATCHER_MAP.remove(ChannelIdUtils.getChannelId(socketChannel));
+    }
 }

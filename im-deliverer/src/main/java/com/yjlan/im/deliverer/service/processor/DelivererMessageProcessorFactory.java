@@ -1,4 +1,4 @@
-package com.yjlan.im.gateway.processor;
+package com.yjlan.im.deliverer.service.processor;
 
 import java.util.HashMap;
 
@@ -17,21 +17,21 @@ import com.yjlan.im.common.constants.Constant;
  * @date 2022.01.24 14:42
  */
 @Component
-public class MessageProcessorFactory implements InitializingBean, ApplicationContextAware {
+public class DelivererMessageProcessorFactory implements InitializingBean, ApplicationContextAware {
     
-    private static final HashMap<Integer, MessageProcessor> PROCESSOR_MAP
+    private static final HashMap<Integer, DelivererMessageProcessor> PROCESSOR_MAP
             = new HashMap<>(Constant.DEFAULT_HASH_MAP_SIZE);
     
     private ApplicationContext applicationContext;
     
     
-    public MessageProcessor getMessageProcessor(Integer messageManagerType) {
+    public DelivererMessageProcessor getMessageProcessor(Integer messageManagerType) {
         return PROCESSOR_MAP.get(messageManagerType);
     }
     
     @Override
     public void afterPropertiesSet() throws Exception {
-        applicationContext.getBeansOfType(MessageProcessor.class)
+        applicationContext.getBeansOfType(DelivererMessageProcessor.class)
                 .values().forEach(e -> PROCESSOR_MAP.put(e.getMessageManagerType(),e));
     }
     

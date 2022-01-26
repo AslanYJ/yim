@@ -7,29 +7,39 @@ import io.netty.channel.socket.SocketChannel;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 保存和gateway的连接
  * @author yjlan
  */
 public class GatewaySessionManager {
-
+    
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(GatewaySessionManager.class);
+    
     /**
-     * 保存和gateway的channel的连接
+     * 认证通过后，保存对应的连接
      */
-    private static final Map<String, SocketChannel> GATEWAY_CONNECT_CHANNEL =
-            new ConcurrentHashMap<>(Constant.DEFAULT_HASH_MAP_SIZE);
-
-    public static SocketChannel getGatewayChannel(String gatewayChannelId) {
-        return GATEWAY_CONNECT_CHANNEL.get(gatewayChannelId);
+    private static final Map<String,SocketChannel> INSTANCE_CODE_CHANNEL_MAP
+             = new ConcurrentHashMap<>(Constant.DEFAULT_HASH_MAP_SIZE);
+    
+    
+    public static SocketChannel getHasAuthSocketChannel(String instanceCode) {
+        return INSTANCE_CODE_CHANNEL_MAP.get(instanceCode);
     }
-
-    public static void put(SocketChannel socketChannel) {
-        GATEWAY_CONNECT_CHANNEL.put(ChannelIdUtils.getChannelId(socketChannel),socketChannel);
+    
+    public static void put(String instanceCode,SocketChannel socketChannel) {
+        INSTANCE_CODE_CHANNEL_MAP.put(instanceCode,socketChannel);
     }
-
+    
 
     public static void remove(SocketChannel socketChannel) {
-        GATEWAY_CONNECT_CHANNEL.remove(ChannelIdUtils.getChannelId(socketChannel));
+        LOGGER.info( "元素个数" + INSTANCE_CODE_CHANNEL_MAP.size());
+        INSTANCE_CODE_CHANNEL_MAP.entrySet().stream().filter(entry -> entry.getValue() == socketChannel).forEach(entry -> INSTANCE_CODE_CHANNEL_MAP.remove(entry.getKey()));
+        LOGGER.info( "移除后元素个数" + INSTANCE_CODE_CHANNEL_MAP.size());
+    
     }
 
 }

@@ -18,6 +18,7 @@ public  final class AuthenticateRequest extends
     uid_ = "";
     token_ = "";
     timestamp_ = 0L;
+    instanceCode_ = "";
   }
 
   @java.lang.Override
@@ -60,6 +61,12 @@ public  final class AuthenticateRequest extends
           case 24: {
 
             timestamp_ = input.readInt64();
+            break;
+          }
+          case 34: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            instanceCode_ = s;
             break;
           }
         }
@@ -162,6 +169,40 @@ public  final class AuthenticateRequest extends
     return timestamp_;
   }
 
+  public static final int INSTANCECODE_FIELD_NUMBER = 4;
+  private volatile java.lang.Object instanceCode_;
+  /**
+   * <code>optional string instanceCode = 4;</code>
+   */
+  public java.lang.String getInstanceCode() {
+    java.lang.Object ref = instanceCode_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      instanceCode_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>optional string instanceCode = 4;</code>
+   */
+  public com.google.protobuf.ByteString
+      getInstanceCodeBytes() {
+    java.lang.Object ref = instanceCode_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      instanceCode_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -183,6 +224,9 @@ public  final class AuthenticateRequest extends
     if (timestamp_ != 0L) {
       output.writeInt64(3, timestamp_);
     }
+    if (!getInstanceCodeBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, instanceCode_);
+    }
   }
 
   public int getSerializedSize() {
@@ -199,6 +243,9 @@ public  final class AuthenticateRequest extends
     if (timestamp_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(3, timestamp_);
+    }
+    if (!getInstanceCodeBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, instanceCode_);
     }
     memoizedSize = size;
     return size;
@@ -222,6 +269,8 @@ public  final class AuthenticateRequest extends
         .equals(other.getToken());
     result = result && (getTimestamp()
         == other.getTimestamp());
+    result = result && getInstanceCode()
+        .equals(other.getInstanceCode());
     return result;
   }
 
@@ -239,6 +288,8 @@ public  final class AuthenticateRequest extends
     hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getTimestamp());
+    hash = (37 * hash) + INSTANCECODE_FIELD_NUMBER;
+    hash = (53 * hash) + getInstanceCode().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -363,6 +414,8 @@ public  final class AuthenticateRequest extends
 
       timestamp_ = 0L;
 
+      instanceCode_ = "";
+
       return this;
     }
 
@@ -388,6 +441,7 @@ public  final class AuthenticateRequest extends
       result.uid_ = uid_;
       result.token_ = token_;
       result.timestamp_ = timestamp_;
+      result.instanceCode_ = instanceCode_;
       onBuilt();
       return result;
     }
@@ -439,6 +493,10 @@ public  final class AuthenticateRequest extends
       }
       if (other.getTimestamp() != 0L) {
         setTimestamp(other.getTimestamp());
+      }
+      if (!other.getInstanceCode().isEmpty()) {
+        instanceCode_ = other.instanceCode_;
+        onChanged();
       }
       onChanged();
       return this;
@@ -626,6 +684,75 @@ public  final class AuthenticateRequest extends
     public Builder clearTimestamp() {
       
       timestamp_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object instanceCode_ = "";
+    /**
+     * <code>optional string instanceCode = 4;</code>
+     */
+    public java.lang.String getInstanceCode() {
+      java.lang.Object ref = instanceCode_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        instanceCode_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string instanceCode = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getInstanceCodeBytes() {
+      java.lang.Object ref = instanceCode_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        instanceCode_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string instanceCode = 4;</code>
+     */
+    public Builder setInstanceCode(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      instanceCode_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string instanceCode = 4;</code>
+     */
+    public Builder clearInstanceCode() {
+      
+      instanceCode_ = getDefaultInstance().getInstanceCode();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string instanceCode = 4;</code>
+     */
+    public Builder setInstanceCodeBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      instanceCode_ = value;
       onChanged();
       return this;
     }

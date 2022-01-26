@@ -44,6 +44,16 @@ public final class Im {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_MessagePushResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_SendDelivererRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_SendDelivererRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_SendDelivererResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_SendDelivererResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -53,20 +63,24 @@ public final class Im {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\010im.proto\"D\n\023AuthenticateRequest\022\013\n\003uid" +
+      "\n\010im.proto\"Z\n\023AuthenticateRequest\022\013\n\003uid" +
       "\030\001 \001(\t\022\r\n\005token\030\002 \001(\t\022\021\n\ttimestamp\030\003 \001(\003" +
-      "\"5\n\024AuthenticateResponse\022\014\n\004code\030\001 \001(\005\022\017" +
-      "\n\007message\030\002 \001(\t\"O\n\022MessageSendRequest\022\020\n" +
-      "\010senderId\030\001 \001(\t\022\022\n\nreceiverId\030\002 \001(\t\022\023\n\013s" +
-      "endContent\030\003 \001(\t\"m\n\023MessageSendResponse\022" +
-      "\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 \001(\t\022\020\n\010sender" +
-      "Id\030\003 \001(\t\022\022\n\nreceiverId\030\004 \001(\t\022\021\n\ttimestam" +
-      "p\030\005 \001(\003\"u\n\022MessagePushRequest\022\021\n\tmessage" +
-      "Id\030\001 \001(\003\022\020\n\010senderId\030\002 \001(\t\022\022\n\nreceiverId",
-      "\030\003 \001(\t\022\023\n\013sendContent\030\004 \001(\t\022\021\n\ttimestamp" +
-      "\030\005 \001(\003\"G\n\023MessagePushResponse\022\014\n\004code\030\001 " +
-      "\001(\005\022\021\n\tmessageId\030\002 \001(\003\022\017\n\007message\030\003 \001(\tB" +
-      "\035\n\031com.yjlan.im.common.protoP\001b\006proto3"
+      "\022\024\n\014instanceCode\030\004 \001(\t\"5\n\024AuthenticateRe" +
+      "sponse\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 \001(\t\"O\n" +
+      "\022MessageSendRequest\022\020\n\010senderId\030\001 \001(\t\022\022\n" +
+      "\nreceiverId\030\002 \001(\t\022\023\n\013sendContent\030\003 \001(\t\"m" +
+      "\n\023MessageSendResponse\022\014\n\004code\030\001 \001(\005\022\017\n\007m" +
+      "essage\030\002 \001(\t\022\020\n\010senderId\030\003 \001(\t\022\022\n\nreceiv" +
+      "erId\030\004 \001(\t\022\021\n\ttimestamp\030\005 \001(\003\"u\n\022Message" +
+      "PushRequest\022\021\n\tmessageId\030\001 \001(\003\022\020\n\010sender",
+      "Id\030\002 \001(\t\022\022\n\nreceiverId\030\003 \001(\t\022\023\n\013sendCont" +
+      "ent\030\004 \001(\t\022\021\n\ttimestamp\030\005 \001(\003\"G\n\023MessageP" +
+      "ushResponse\022\014\n\004code\030\001 \001(\005\022\021\n\tmessageId\030\002" +
+      " \001(\003\022\017\n\007message\030\003 \001(\t\",\n\024SendDelivererRe" +
+      "quest\022\024\n\014instanceCode\030\001 \001(\t\"6\n\025SendDeliv" +
+      "ererResponse\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 " +
+      "\001(\tB\035\n\031com.yjlan.im.common.protoP\001b\006prot" +
+      "o3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -85,7 +99,7 @@ public final class Im {
     internal_static_AuthenticateRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AuthenticateRequest_descriptor,
-        new java.lang.String[] { "Uid", "Token", "Timestamp", });
+        new java.lang.String[] { "Uid", "Token", "Timestamp", "InstanceCode", });
     internal_static_AuthenticateResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_AuthenticateResponse_fieldAccessorTable = new
@@ -116,6 +130,18 @@ public final class Im {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MessagePushResponse_descriptor,
         new java.lang.String[] { "Code", "MessageId", "Message", });
+    internal_static_SendDelivererRequest_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_SendDelivererRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_SendDelivererRequest_descriptor,
+        new java.lang.String[] { "InstanceCode", });
+    internal_static_SendDelivererResponse_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_SendDelivererResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_SendDelivererResponse_descriptor,
+        new java.lang.String[] { "Code", "Message", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

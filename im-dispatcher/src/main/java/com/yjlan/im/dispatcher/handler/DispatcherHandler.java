@@ -1,5 +1,7 @@
 package com.yjlan.im.dispatcher.handler;
 
+import java.net.SocketAddress;
+
 import com.yjlan.im.common.protocol.MessageHeader;
 import com.yjlan.im.common.utils.ChannelIdUtils;
 import com.yjlan.im.common.utils.SpringBeanFactory;
@@ -32,8 +34,7 @@ public class DispatcherHandler extends SimpleChannelInboundHandler<MessageProtoc
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         LOGGER.info("已经跟gateway建立连接，gateway地址为,msg：{}", ctx.channel().remoteAddress().toString());
-        GatewaySessionManager.put((SocketChannel) ctx.channel());
-        LOGGER.info("channelId:{}", ChannelIdUtils.getChannelId((SocketChannel)ctx.channel()));
+        
     }
 
     @Override

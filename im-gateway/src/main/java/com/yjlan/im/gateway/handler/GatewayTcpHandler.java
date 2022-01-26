@@ -1,10 +1,7 @@
 package com.yjlan.im.gateway.handler;
 
-import com.yjlan.im.common.proto.AuthenticateRequest;
 import com.yjlan.im.common.protocol.MessageHeader;
-import com.yjlan.im.common.protocol.MessageTypeManager;
 import com.yjlan.im.common.utils.SpringBeanFactory;
-import com.yjlan.im.gateway.dispatcher.DispatcherManager;
 import com.yjlan.im.gateway.processor.MessageProcessorFactory;
 import com.yjlan.im.gateway.session.SessionManager;
 import io.netty.channel.ChannelHandlerContext;

@@ -10,6 +10,8 @@ import com.yjlan.im.common.proto.MessagePushRequest;
 import com.yjlan.im.common.proto.MessagePushResponse;
 import com.yjlan.im.common.proto.MessageSendRequest;
 import com.yjlan.im.common.proto.MessageSendResponse;
+import com.yjlan.im.common.proto.SendDelivererRequest;
+import com.yjlan.im.common.proto.SendDelivererResponse;
 
 /**
  * @author yjlan
@@ -44,7 +46,15 @@ public enum MessageTypeManager {
     /**
      * 推送返回
      */
-    MESSAGE_PUSH_RESPONSE(6, MessagePushResponse.getDefaultInstance())
+    MESSAGE_PUSH_RESPONSE(6, MessagePushResponse.getDefaultInstance()),
+    /**
+     * 发送一个连接给deliverer
+     */
+    SEND_DELIVERER_REQUEST(7, SendDelivererRequest.getDefaultInstance()),
+    /**
+     * 返回值，可能没用，先定义
+     */
+    SEND_DELIVERER_RESPONSE(8, SendDelivererResponse.getDefaultInstance())
     ;
     private final static Logger LOGGER = LoggerFactory.getLogger(MessageTypeManager.class);
     

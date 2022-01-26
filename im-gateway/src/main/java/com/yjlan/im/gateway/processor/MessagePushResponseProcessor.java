@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import com.yjlan.im.common.proto.MessagePushResponse;
 import com.yjlan.im.common.protocol.MessageProtocol;
 import com.yjlan.im.common.protocol.MessageTypeManager;
+import com.yjlan.im.gateway.deliverer.DelivererManager;
 import com.yjlan.im.gateway.dispatcher.DispatcherManager;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -24,13 +25,13 @@ public class MessagePushResponseProcessor implements MessageProcessor{
     private static final Logger LOGGER = LoggerFactory.getLogger(MessagePushResponseProcessor.class);
 
     @Resource
-    private DispatcherManager dispatcherManager;
+    private DelivererManager delivererManager;
     
     @Override
     public void process(MessageProtocol message, ChannelHandlerContext ctx) {
         MessagePushResponse messagePushResponse = (MessagePushResponse) message.getBody();
         LOGGER.info("收到推送消息的响应体,msg:{}",messagePushResponse.toString());
-        dispatcherManager.forwardToDispatcher((SocketChannel) ctx.channel(),messagePushResponse);
+        delivererManager.forwardToDeliverer((SocketChannel) ctx.channel(),messagePushResponse);
     }
 
     @Override

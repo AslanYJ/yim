@@ -96,7 +96,8 @@ public class ImNettyClient {
         AuthenticateRequest request = AuthenticateRequest.newBuilder()
                 .setToken(token)
                 .setUid(clientConfig.getUserId())
-                .setTimestamp(System.currentTimeMillis()).build();
+                .setTimestamp(System.currentTimeMillis())
+                .setInstanceCode("").build();
         MessageProtocolUtils.sendMsg(socketChannel,request);
     }
     

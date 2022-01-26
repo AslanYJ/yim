@@ -2,7 +2,7 @@ package com.yjlan.im.dispatcher.tool;
 
 import com.yjlan.im.common.proto.AuthenticateRequest;
 import com.yjlan.im.dispatcher.DispatcherApplication;
-import com.yjlan.im.dispatcher.constants.RedisPrefixConstant;
+import com.yjlan.im.common.constants.RedisPrefixConstant;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -2,20 +2,20 @@ package com.yjlan.im.dispatcher.service.processor;
 
 import javax.annotation.Resource;
 
-import com.yjlan.im.common.utils.ChannelIdUtils;
-import com.yjlan.im.dispatcher.constants.RedisPrefixConstant;
 import io.netty.channel.ChannelHandlerContext;
-
 import io.netty.channel.socket.SocketChannel;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import com.yjlan.im.common.constants.RedisPrefixConstant;
 import com.yjlan.im.common.proto.AuthenticateRequest;
 import com.yjlan.im.common.protocol.MessageProtocol;
 import com.yjlan.im.common.protocol.MessageTypeManager;
 import com.yjlan.im.dispatcher.service.sso.SsoService;
+import com.yjlan.im.dispatcher.session.GatewaySessionManager;
 
 /**
  * @author yjlan
@@ -40,23 +40,14 @@ public class AuthenticateRequestProcessor implements DispatcherMessageProcessor 
         AuthenticateRequest request = (AuthenticateRequest) message.getBody();
         boolean authenticate = ssoService.authenticate(request);
         if (authenticate) {
-            //    // 其实在这里应该把session信息写入Redis的
-            //            String sessionKey = "session_" + authenticateRequest.getUid();
-            //            String sessionValue= "{"
-            //                    + "'token':'" + authenticateRequest.getToken() + "',"
-            //                    + "'timestamp':" + authenticateRequest.getTimestamp() + ","
-            //                    + "'isAuthenticated':'true',"
-            //                    + "'authenticateTimestamp':" + System.currentTimeMillis() + ","
-            //                    + "'gatewayChannelId': '" + gatewayChannelId + "'"
-            //                    + "}";
             // 认证成功后，将会话存到存入redis中
-            saveSession(request, ChannelIdUtils.getChannelId((SocketChannel) ctx.channel()));
+            saveSession(request);
+            GatewaySessionManager.put(request.getInstanceCode(),(SocketChannel) ctx.channel());
         }
  
     }
 
-    private void saveSession(AuthenticateRequest request,String gatewayChannelId) {
-        
+    private void saveSession(AuthenticateRequest request) {
         redisTemplate.opsForHash().put(RedisPrefixConstant.USER_SESSION
                 + request.getUid(),"token",request.getToken());
         redisTemplate.opsForHash().put(RedisPrefixConstant.USER_SESSION
@@ -64,7 +55,8 @@ public class AuthenticateRequestProcessor implements DispatcherMessageProcessor 
         redisTemplate.opsForHash().put(RedisPrefixConstant.USER_SESSION
         + request.getUid(),"isAuthenticated",String.valueOf(true));
         redisTemplate.opsForHash().put(RedisPrefixConstant.USER_SESSION
-        + request.getUid(),"gatewayChannelId",gatewayChannelId);
+        + request.getUid(),"instanceCode",request.getInstanceCode());
+        
 
     }
     

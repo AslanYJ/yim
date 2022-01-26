@@ -16,7 +16,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.yjlan.im.common.mq.RocketMqConstant;
 import com.yjlan.im.common.proto.MessageSendResponse;
 import com.yjlan.im.common.utils.MessageProtocolUtils;
-import com.yjlan.im.dispatcher.constants.RedisPrefixConstant;
+import com.yjlan.im.common.constants.RedisPrefixConstant;
 import com.yjlan.im.dispatcher.session.GatewaySessionManager;
 
 /**
@@ -46,9 +46,9 @@ public class SendMessageResponseConsumer implements RocketMQListener<MessageExt>
         // 修改消息状态
         String senderId = jsonObject.getString("senderId");
         // 发消息告诉客户端消息已经送达，并且已读
-        String gatewayChannelId = (String)redisTemplate.opsForHash()
+        String instanceCode = (String)redisTemplate.opsForHash()
                 .get(RedisPrefixConstant.USER_SESSION + senderId,
-                        "gatewayChannelId");
+                        "instanceCode");
         MessageSendResponse response = MessageSendResponse.newBuilder()
                 .setSenderId(jsonObject.getString("senderId"))
                 .setReceiverId(jsonObject.getString("receiverId"))
@@ -56,8 +56,8 @@ public class SendMessageResponseConsumer implements RocketMQListener<MessageExt>
                 .setCode(jsonObject.getIntValue("code"))
                 .setTimestamp(jsonObject.getLongValue("timeStamp"))
                 .build();
-        if (StringUtils.isNotBlank(gatewayChannelId)) {
-            final SocketChannel gatewayChannel = GatewaySessionManager.getGatewayChannel(gatewayChannelId);
+        if (StringUtils.isNotBlank(instanceCode)) {
+            final SocketChannel gatewayChannel = GatewaySessionManager.getHasAuthSocketChannel(instanceCode);
             MessageProtocolUtils.sendMsg(gatewayChannel,response);
         }
         
