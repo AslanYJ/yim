@@ -19,12 +19,12 @@ public class SessionManager {
     /**
      * 保存用户认证通过后的socketChannel
      */
-    private static final Map<String, SocketChannel> USER_SOCKET_CHANNEL_CACHE = new ConcurrentHashMap<>(Constant.DEFAULT_HASH_MAP_SIZE);
+    private static final Map<Long, SocketChannel> USER_SOCKET_CHANNEL_CACHE = new ConcurrentHashMap<>(Constant.DEFAULT_HASH_MAP_SIZE);
 
     /**
      * 存储channelId到uid的映射
      */
-    private static final Map<String,String> SOCKET_CHANNEL_UID_CACHE = new ConcurrentHashMap<>(Constant.DEFAULT_HASH_MAP_SIZE);
+    private static final Map<String,Long> SOCKET_CHANNEL_UID_CACHE = new ConcurrentHashMap<>(Constant.DEFAULT_HASH_MAP_SIZE);
 
 
     /**
@@ -32,7 +32,7 @@ public class SessionManager {
      * @param uid uid
      * @param socketChannel 对应的和client端的连接
      */
-    public static void put(String uid,SocketChannel socketChannel) {
+    public static void put(Long uid,SocketChannel socketChannel) {
         USER_SOCKET_CHANNEL_CACHE.put(uid,socketChannel);
         SOCKET_CHANNEL_UID_CACHE.put(ChannelIdUtils.getChannelId(socketChannel),uid);
     }
@@ -53,7 +53,7 @@ public class SessionManager {
      * @param uid uid
      * @return channel
      */
-    public static SocketChannel getSocketChannel(String uid) {
+    public static SocketChannel getSocketChannel(Long uid) {
         return USER_SOCKET_CHANNEL_CACHE.get(uid);
     }
 
@@ -64,7 +64,7 @@ public class SessionManager {
     public static void remove(SocketChannel socketChannel) {
         String channelId = ChannelIdUtils.getChannelId(socketChannel);
         if (!StringUtils.isEmpty(channelId)) {
-            String uid = SOCKET_CHANNEL_UID_CACHE.get(channelId);
+            Long uid = SOCKET_CHANNEL_UID_CACHE.get(channelId);
             SOCKET_CHANNEL_UID_CACHE.remove(channelId);
             if (uid != null) {
                 USER_SOCKET_CHANNEL_CACHE.remove(uid);

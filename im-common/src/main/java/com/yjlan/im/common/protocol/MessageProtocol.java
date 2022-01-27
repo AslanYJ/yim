@@ -86,7 +86,7 @@ public class MessageProtocol {
     public static void main(String[] args) throws InvalidProtocolBufferException {
         // 封装认证请求的消息体
         AuthenticateRequest request =
-                AuthenticateRequest.newBuilder().setUid("123")
+                AuthenticateRequest.newBuilder().setUid(123)
        .setToken("123KKK")
         .setTimestamp(System.currentTimeMillis()).build();
         

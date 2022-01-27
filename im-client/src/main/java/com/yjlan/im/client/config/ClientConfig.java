@@ -20,12 +20,12 @@ public class ClientConfig {
     
     
     @Value("${userId}")
-    private String userId;
+    private Long userId;
     
     @Value("${userName}")
     private String userName;
     
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
     

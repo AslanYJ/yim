@@ -35,7 +35,7 @@ public class ScanWorker extends Thread{
             if (commandType.equals("auth")) {
                 imNettyClient.authenticate(strings[1]);
             } else if (commandType.equals("send")){
-                String receiverId = strings[1];
+                Long receiverId = Long.valueOf(strings[1]);
                 String message = strings[2];
                 imNettyClient.sendMessagePeer2Peer(receiverId,message);
             }

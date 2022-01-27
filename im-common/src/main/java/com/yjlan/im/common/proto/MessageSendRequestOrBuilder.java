@@ -8,24 +8,14 @@ public interface MessageSendRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>optional string senderId = 1;</code>
+   * <code>optional int64 senderId = 1;</code>
    */
-  java.lang.String getSenderId();
-  /**
-   * <code>optional string senderId = 1;</code>
-   */
-  com.google.protobuf.ByteString
-      getSenderIdBytes();
+  long getSenderId();
 
   /**
-   * <code>optional string receiverId = 2;</code>
+   * <code>optional int64 receiverId = 2;</code>
    */
-  java.lang.String getReceiverId();
-  /**
-   * <code>optional string receiverId = 2;</code>
-   */
-  com.google.protobuf.ByteString
-      getReceiverIdBytes();
+  long getReceiverId();
 
   /**
    * <code>optional string sendContent = 3;</code>

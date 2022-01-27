@@ -44,14 +44,14 @@ public class PushMessageConsumer implements RocketMQListener<MessageExt> {
         JSONObject jsonObject = JSONObject.parseObject(new String(messageExt.getBody()));
         LOGGER.info("get push message,message:{}", jsonObject.toJSONString());
         // 从Redis中拿到对应的receiverId的gatewayChannelId
-        String receiverId = jsonObject.getString("receiverId");
+        Long receiverId = jsonObject.getLong("receiverId");
         String instanceCode = (String) redisTemplate.opsForHash().get(RedisPrefixConstant.USER_SESSION + receiverId,
                 "instanceCode");
         if (StringUtils.isNotBlank(instanceCode)) {
             SocketChannel gatewaySocketChannel = GatewaySessionManager.getGatewayChannel(instanceCode);
             MessagePushRequest messagePushRequest = MessagePushRequest.newBuilder()
                     .setMessageId(jsonObject.getLongValue("id"))
-                    .setSenderId(jsonObject.getString("senderId"))
+                    .setSenderId(jsonObject.getLong("senderId"))
                     .setReceiverId(receiverId)
                     .setSendContent(jsonObject.getString("sendContent"))
                     .setTimestamp(System.currentTimeMillis())

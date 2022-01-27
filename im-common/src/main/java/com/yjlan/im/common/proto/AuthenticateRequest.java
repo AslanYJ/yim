@@ -15,7 +15,7 @@ public  final class AuthenticateRequest extends
     super(builder);
   }
   private AuthenticateRequest() {
-    uid_ = "";
+    uid_ = 0L;
     token_ = "";
     timestamp_ = 0L;
     instanceCode_ = "";
@@ -46,10 +46,9 @@ public  final class AuthenticateRequest extends
             }
             break;
           }
-          case 10: {
-            java.lang.String s = input.readStringRequireUtf8();
+          case 8: {
 
-            uid_ = s;
+            uid_ = input.readInt64();
             break;
           }
           case 18: {
@@ -93,37 +92,12 @@ public  final class AuthenticateRequest extends
   }
 
   public static final int UID_FIELD_NUMBER = 1;
-  private volatile java.lang.Object uid_;
+  private long uid_;
   /**
-   * <code>optional string uid = 1;</code>
+   * <code>optional int64 uid = 1;</code>
    */
-  public java.lang.String getUid() {
-    java.lang.Object ref = uid_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      uid_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>optional string uid = 1;</code>
-   */
-  public com.google.protobuf.ByteString
-      getUidBytes() {
-    java.lang.Object ref = uid_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      uid_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
+  public long getUid() {
+    return uid_;
   }
 
   public static final int TOKEN_FIELD_NUMBER = 2;
@@ -215,8 +189,8 @@ public  final class AuthenticateRequest extends
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getUidBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, uid_);
+    if (uid_ != 0L) {
+      output.writeInt64(1, uid_);
     }
     if (!getTokenBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, token_);
@@ -234,8 +208,9 @@ public  final class AuthenticateRequest extends
     if (size != -1) return size;
 
     size = 0;
-    if (!getUidBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, uid_);
+    if (uid_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(1, uid_);
     }
     if (!getTokenBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, token_);
@@ -263,8 +238,8 @@ public  final class AuthenticateRequest extends
     com.yjlan.im.common.proto.AuthenticateRequest other = (com.yjlan.im.common.proto.AuthenticateRequest) obj;
 
     boolean result = true;
-    result = result && getUid()
-        .equals(other.getUid());
+    result = result && (getUid()
+        == other.getUid());
     result = result && getToken()
         .equals(other.getToken());
     result = result && (getTimestamp()
@@ -282,7 +257,8 @@ public  final class AuthenticateRequest extends
     int hash = 41;
     hash = (19 * hash) + getDescriptorForType().hashCode();
     hash = (37 * hash) + UID_FIELD_NUMBER;
-    hash = (53 * hash) + getUid().hashCode();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getUid());
     hash = (37 * hash) + TOKEN_FIELD_NUMBER;
     hash = (53 * hash) + getToken().hashCode();
     hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
@@ -408,7 +384,7 @@ public  final class AuthenticateRequest extends
     }
     public Builder clear() {
       super.clear();
-      uid_ = "";
+      uid_ = 0L;
 
       token_ = "";
 
@@ -483,9 +459,8 @@ public  final class AuthenticateRequest extends
 
     public Builder mergeFrom(com.yjlan.im.common.proto.AuthenticateRequest other) {
       if (other == com.yjlan.im.common.proto.AuthenticateRequest.getDefaultInstance()) return this;
-      if (!other.getUid().isEmpty()) {
-        uid_ = other.uid_;
-        onChanged();
+      if (other.getUid() != 0L) {
+        setUid(other.getUid());
       }
       if (!other.getToken().isEmpty()) {
         token_ = other.token_;
@@ -524,71 +499,28 @@ public  final class AuthenticateRequest extends
       return this;
     }
 
-    private java.lang.Object uid_ = "";
+    private long uid_ ;
     /**
-     * <code>optional string uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
-    public java.lang.String getUid() {
-      java.lang.Object ref = uid_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        uid_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
+    public long getUid() {
+      return uid_;
     }
     /**
-     * <code>optional string uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
-    public com.google.protobuf.ByteString
-        getUidBytes() {
-      java.lang.Object ref = uid_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        uid_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>optional string uid = 1;</code>
-     */
-    public Builder setUid(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+    public Builder setUid(long value) {
+      
       uid_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>optional string uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     public Builder clearUid() {
       
-      uid_ = getDefaultInstance().getUid();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>optional string uid = 1;</code>
-     */
-    public Builder setUidBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      uid_ = value;
+      uid_ = 0L;
       onChanged();
       return this;
     }

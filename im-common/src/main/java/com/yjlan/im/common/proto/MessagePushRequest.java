@@ -16,8 +16,8 @@ public  final class MessagePushRequest extends
   }
   private MessagePushRequest() {
     messageId_ = 0L;
-    senderId_ = "";
-    receiverId_ = "";
+    senderId_ = 0L;
+    receiverId_ = 0L;
     sendContent_ = "";
     timestamp_ = 0L;
   }
@@ -52,16 +52,14 @@ public  final class MessagePushRequest extends
             messageId_ = input.readInt64();
             break;
           }
-          case 18: {
-            java.lang.String s = input.readStringRequireUtf8();
+          case 16: {
 
-            senderId_ = s;
+            senderId_ = input.readInt64();
             break;
           }
-          case 26: {
-            java.lang.String s = input.readStringRequireUtf8();
+          case 24: {
 
-            receiverId_ = s;
+            receiverId_ = input.readInt64();
             break;
           }
           case 34: {
@@ -108,71 +106,21 @@ public  final class MessagePushRequest extends
   }
 
   public static final int SENDERID_FIELD_NUMBER = 2;
-  private volatile java.lang.Object senderId_;
+  private long senderId_;
   /**
-   * <code>optional string senderId = 2;</code>
+   * <code>optional int64 senderId = 2;</code>
    */
-  public java.lang.String getSenderId() {
-    java.lang.Object ref = senderId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      senderId_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>optional string senderId = 2;</code>
-   */
-  public com.google.protobuf.ByteString
-      getSenderIdBytes() {
-    java.lang.Object ref = senderId_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      senderId_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
+  public long getSenderId() {
+    return senderId_;
   }
 
   public static final int RECEIVERID_FIELD_NUMBER = 3;
-  private volatile java.lang.Object receiverId_;
+  private long receiverId_;
   /**
-   * <code>optional string receiverId = 3;</code>
+   * <code>optional int64 receiverId = 3;</code>
    */
-  public java.lang.String getReceiverId() {
-    java.lang.Object ref = receiverId_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      receiverId_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>optional string receiverId = 3;</code>
-   */
-  public com.google.protobuf.ByteString
-      getReceiverIdBytes() {
-    java.lang.Object ref = receiverId_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      receiverId_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
+  public long getReceiverId() {
+    return receiverId_;
   }
 
   public static final int SENDCONTENT_FIELD_NUMBER = 4;
@@ -233,11 +181,11 @@ public  final class MessagePushRequest extends
     if (messageId_ != 0L) {
       output.writeInt64(1, messageId_);
     }
-    if (!getSenderIdBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, senderId_);
+    if (senderId_ != 0L) {
+      output.writeInt64(2, senderId_);
     }
-    if (!getReceiverIdBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, receiverId_);
+    if (receiverId_ != 0L) {
+      output.writeInt64(3, receiverId_);
     }
     if (!getSendContentBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, sendContent_);
@@ -256,11 +204,13 @@ public  final class MessagePushRequest extends
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(1, messageId_);
     }
-    if (!getSenderIdBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, senderId_);
+    if (senderId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(2, senderId_);
     }
-    if (!getReceiverIdBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, receiverId_);
+    if (receiverId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(3, receiverId_);
     }
     if (!getSendContentBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, sendContent_);
@@ -287,10 +237,10 @@ public  final class MessagePushRequest extends
     boolean result = true;
     result = result && (getMessageId()
         == other.getMessageId());
-    result = result && getSenderId()
-        .equals(other.getSenderId());
-    result = result && getReceiverId()
-        .equals(other.getReceiverId());
+    result = result && (getSenderId()
+        == other.getSenderId());
+    result = result && (getReceiverId()
+        == other.getReceiverId());
     result = result && getSendContent()
         .equals(other.getSendContent());
     result = result && (getTimestamp()
@@ -309,9 +259,11 @@ public  final class MessagePushRequest extends
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getMessageId());
     hash = (37 * hash) + SENDERID_FIELD_NUMBER;
-    hash = (53 * hash) + getSenderId().hashCode();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getSenderId());
     hash = (37 * hash) + RECEIVERID_FIELD_NUMBER;
-    hash = (53 * hash) + getReceiverId().hashCode();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getReceiverId());
     hash = (37 * hash) + SENDCONTENT_FIELD_NUMBER;
     hash = (53 * hash) + getSendContent().hashCode();
     hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
@@ -437,9 +389,9 @@ public  final class MessagePushRequest extends
       super.clear();
       messageId_ = 0L;
 
-      senderId_ = "";
+      senderId_ = 0L;
 
-      receiverId_ = "";
+      receiverId_ = 0L;
 
       sendContent_ = "";
 
@@ -516,13 +468,11 @@ public  final class MessagePushRequest extends
       if (other.getMessageId() != 0L) {
         setMessageId(other.getMessageId());
       }
-      if (!other.getSenderId().isEmpty()) {
-        senderId_ = other.senderId_;
-        onChanged();
+      if (other.getSenderId() != 0L) {
+        setSenderId(other.getSenderId());
       }
-      if (!other.getReceiverId().isEmpty()) {
-        receiverId_ = other.receiverId_;
-        onChanged();
+      if (other.getReceiverId() != 0L) {
+        setReceiverId(other.getReceiverId());
       }
       if (!other.getSendContent().isEmpty()) {
         sendContent_ = other.sendContent_;
@@ -583,140 +533,54 @@ public  final class MessagePushRequest extends
       return this;
     }
 
-    private java.lang.Object senderId_ = "";
+    private long senderId_ ;
     /**
-     * <code>optional string senderId = 2;</code>
+     * <code>optional int64 senderId = 2;</code>
      */
-    public java.lang.String getSenderId() {
-      java.lang.Object ref = senderId_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        senderId_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
+    public long getSenderId() {
+      return senderId_;
     }
     /**
-     * <code>optional string senderId = 2;</code>
+     * <code>optional int64 senderId = 2;</code>
      */
-    public com.google.protobuf.ByteString
-        getSenderIdBytes() {
-      java.lang.Object ref = senderId_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        senderId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>optional string senderId = 2;</code>
-     */
-    public Builder setSenderId(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+    public Builder setSenderId(long value) {
+      
       senderId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>optional string senderId = 2;</code>
+     * <code>optional int64 senderId = 2;</code>
      */
     public Builder clearSenderId() {
       
-      senderId_ = getDefaultInstance().getSenderId();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>optional string senderId = 2;</code>
-     */
-    public Builder setSenderIdBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      senderId_ = value;
+      senderId_ = 0L;
       onChanged();
       return this;
     }
 
-    private java.lang.Object receiverId_ = "";
+    private long receiverId_ ;
     /**
-     * <code>optional string receiverId = 3;</code>
+     * <code>optional int64 receiverId = 3;</code>
      */
-    public java.lang.String getReceiverId() {
-      java.lang.Object ref = receiverId_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        receiverId_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
+    public long getReceiverId() {
+      return receiverId_;
     }
     /**
-     * <code>optional string receiverId = 3;</code>
+     * <code>optional int64 receiverId = 3;</code>
      */
-    public com.google.protobuf.ByteString
-        getReceiverIdBytes() {
-      java.lang.Object ref = receiverId_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        receiverId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>optional string receiverId = 3;</code>
-     */
-    public Builder setReceiverId(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+    public Builder setReceiverId(long value) {
+      
       receiverId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>optional string receiverId = 3;</code>
+     * <code>optional int64 receiverId = 3;</code>
      */
     public Builder clearReceiverId() {
       
-      receiverId_ = getDefaultInstance().getReceiverId();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>optional string receiverId = 3;</code>
-     */
-    public Builder setReceiverIdBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      receiverId_ = value;
+      receiverId_ = 0L;
       onChanged();
       return this;
     }

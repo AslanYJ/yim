@@ -1,9 +1,7 @@
 package com.yjlan.im.business.mapper;
 
 import com.yjlan.im.business.entity.PeerToPeerMsg;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
 public interface PeerToPeerMsgMapper {
     int deleteByPrimaryKey(Long id);
 

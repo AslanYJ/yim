@@ -13,24 +13,14 @@ public interface MessagePushRequestOrBuilder extends
   long getMessageId();
 
   /**
-   * <code>optional string senderId = 2;</code>
+   * <code>optional int64 senderId = 2;</code>
    */
-  java.lang.String getSenderId();
-  /**
-   * <code>optional string senderId = 2;</code>
-   */
-  com.google.protobuf.ByteString
-      getSenderIdBytes();
+  long getSenderId();
 
   /**
-   * <code>optional string receiverId = 3;</code>
+   * <code>optional int64 receiverId = 3;</code>
    */
-  java.lang.String getReceiverId();
-  /**
-   * <code>optional string receiverId = 3;</code>
-   */
-  com.google.protobuf.ByteString
-      getReceiverIdBytes();
+  long getReceiverId();
 
   /**
    * <code>optional string sendContent = 4;</code>

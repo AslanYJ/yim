@@ -43,15 +43,14 @@ public class SendMessageResponseConsumer implements RocketMQListener<MessageExt>
     @Override
     public void onMessage(MessageExt messageExt) {
         JSONObject jsonObject = JSON.parseObject(new String(messageExt.getBody()));
-        // 修改消息状态
-        String senderId = jsonObject.getString("senderId");
+        Long senderId = jsonObject.getLong("senderId");
         // 发消息告诉客户端消息已经送达，并且已读
         String instanceCode = (String)redisTemplate.opsForHash()
                 .get(RedisPrefixConstant.USER_SESSION + senderId,
                         "instanceCode");
         MessageSendResponse response = MessageSendResponse.newBuilder()
-                .setSenderId(jsonObject.getString("senderId"))
-                .setReceiverId(jsonObject.getString("receiverId"))
+                .setSenderId(jsonObject.getLong("senderId"))
+                .setReceiverId(jsonObject.getLong("receiverId"))
                 .setMessage(jsonObject.getString("message"))
                 .setCode(jsonObject.getIntValue("code"))
                 .setTimestamp(jsonObject.getLongValue("timeStamp"))

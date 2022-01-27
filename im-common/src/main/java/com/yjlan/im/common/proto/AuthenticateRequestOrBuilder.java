@@ -8,14 +8,9 @@ public interface AuthenticateRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>optional string uid = 1;</code>
+   * <code>optional int64 uid = 1;</code>
    */
-  java.lang.String getUid();
-  /**
-   * <code>optional string uid = 1;</code>
-   */
-  com.google.protobuf.ByteString
-      getUidBytes();
+  long getUid();
 
   /**
    * <code>optional string token = 2;</code>

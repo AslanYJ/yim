@@ -20,7 +20,7 @@ public class MessagePushRequestProcessor implements MessageProcessor{
     public void process(MessageProtocol message, ChannelHandlerContext ctx) {
         MessagePushRequest messagePushRequest = (MessagePushRequest) message.getBody();
         // 找到对应的receiverId的socketChannel，发送消息
-        String receiverId = messagePushRequest.getReceiverId();
+        Long receiverId = messagePushRequest.getReceiverId();
         SocketChannel socketChannel = SessionManager.getSocketChannel(receiverId);
         MessageProtocolUtils.sendMsg(socketChannel,messagePushRequest);
     }

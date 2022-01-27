@@ -30,8 +30,8 @@ public class TestMysql {
     @Test
     public void testPeer() {
         PeerToPeerMsg peerToPeerMsg = new PeerToPeerMsg();
-        peerToPeerMsg.setSenderId("test01");
-        peerToPeerMsg.setReceiverId("test02");
+        peerToPeerMsg.setSenderId(1L);
+        peerToPeerMsg.setReceiverId(2L);
         peerToPeerMsg.setSendContent("test");
         peerToPeerMsgMapper.insertSelective(peerToPeerMsg);
     }

@@ -47,8 +47,8 @@ public class SendMessageConsumer implements RocketMQListener<MessageExt> {
         // 并发高 不适合用Msql直接做存储
         PeerToPeerMsg peerToPeerMsg = new PeerToPeerMsg();
         peerToPeerMsg.setSendContent(jsonObject.getString("sendContent"));
-        peerToPeerMsg.setSenderId(jsonObject.getString("senderId"));
-        peerToPeerMsg.setReceiverId(jsonObject.getString("receiverId"));
+        peerToPeerMsg.setSenderId(jsonObject.getLong("senderId"));
+        peerToPeerMsg.setReceiverId(jsonObject.getLong("receiverId"));
         peerToPeerMessageDao.insert(peerToPeerMsg);
         sendPushMessage(peerToPeerMsg);
     }

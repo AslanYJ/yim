@@ -107,7 +107,7 @@ public class ImNettyClient {
      * @param receiverId 接收人
      * @param sendContent 内容
      */
-    public void sendMessagePeer2Peer(String receiverId,String sendContent) {
+    public void sendMessagePeer2Peer(Long receiverId,String sendContent) {
         if (!isAuthenticate) {
             throw new ImException(ImBusinessCode.AUTHENTICATE_FAIL,"用户没有认证");
         }

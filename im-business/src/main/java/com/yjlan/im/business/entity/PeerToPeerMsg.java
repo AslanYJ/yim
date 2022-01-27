@@ -5,9 +5,9 @@ import java.util.Date;
 public class PeerToPeerMsg {
     private Long id;
 
-    private String senderId;
+    private Long senderId;
 
-    private String receiverId;
+    private Long receiverId;
 
     private Byte isReaded;
 
@@ -17,7 +17,7 @@ public class PeerToPeerMsg {
 
     private String sendContent;
 
-    public PeerToPeerMsg(Long id, String senderId, String receiverId, Byte isReaded, Date gmtCreate, Date gmtUpdate, String sendContent) {
+    public PeerToPeerMsg(Long id, Long senderId, Long receiverId, Byte isReaded, Date gmtCreate, Date gmtUpdate, String sendContent) {
         this.id = id;
         this.senderId = senderId;
         this.receiverId = receiverId;
@@ -39,20 +39,20 @@ public class PeerToPeerMsg {
         this.id = id;
     }
 
-    public String getSenderId() {
+    public Long getSenderId() {
         return senderId;
     }
 
-    public void setSenderId(String senderId) {
-        this.senderId = senderId == null ? null : senderId.trim();
+    public void setSenderId(Long senderId) {
+        this.senderId = senderId;
     }
 
-    public String getReceiverId() {
+    public Long getReceiverId() {
         return receiverId;
     }
 
-    public void setReceiverId(String receiverId) {
-        this.receiverId = receiverId == null ? null : receiverId.trim();
+    public void setReceiverId(Long receiverId) {
+        this.receiverId = receiverId;
     }
 
     public Byte getIsReaded() {

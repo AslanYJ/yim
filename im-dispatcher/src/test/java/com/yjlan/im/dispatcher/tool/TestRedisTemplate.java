@@ -33,7 +33,7 @@ public class TestRedisTemplate {
     @Test
     public void testHash() {
         AuthenticateRequest request = AuthenticateRequest.newBuilder()
-                .setUid("f")
+                .setUid(1)
                 .setToken("testToken")
                 .setTimestamp(System.currentTimeMillis())
                 .build();

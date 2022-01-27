@@ -64,16 +64,16 @@ public final class Im {
   static {
     java.lang.String[] descriptorData = {
       "\n\010im.proto\"Z\n\023AuthenticateRequest\022\013\n\003uid" +
-      "\030\001 \001(\t\022\r\n\005token\030\002 \001(\t\022\021\n\ttimestamp\030\003 \001(\003" +
+      "\030\001 \001(\003\022\r\n\005token\030\002 \001(\t\022\021\n\ttimestamp\030\003 \001(\003" +
       "\022\024\n\014instanceCode\030\004 \001(\t\"5\n\024AuthenticateRe" +
       "sponse\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 \001(\t\"O\n" +
-      "\022MessageSendRequest\022\020\n\010senderId\030\001 \001(\t\022\022\n" +
-      "\nreceiverId\030\002 \001(\t\022\023\n\013sendContent\030\003 \001(\t\"m" +
+      "\022MessageSendRequest\022\020\n\010senderId\030\001 \001(\003\022\022\n" +
+      "\nreceiverId\030\002 \001(\003\022\023\n\013sendContent\030\003 \001(\t\"m" +
       "\n\023MessageSendResponse\022\014\n\004code\030\001 \001(\005\022\017\n\007m" +
-      "essage\030\002 \001(\t\022\020\n\010senderId\030\003 \001(\t\022\022\n\nreceiv" +
-      "erId\030\004 \001(\t\022\021\n\ttimestamp\030\005 \001(\003\"u\n\022Message" +
+      "essage\030\002 \001(\t\022\020\n\010senderId\030\003 \001(\003\022\022\n\nreceiv" +
+      "erId\030\004 \001(\003\022\021\n\ttimestamp\030\005 \001(\003\"u\n\022Message" +
       "PushRequest\022\021\n\tmessageId\030\001 \001(\003\022\020\n\010sender",
-      "Id\030\002 \001(\t\022\022\n\nreceiverId\030\003 \001(\t\022\023\n\013sendCont" +
+      "Id\030\002 \001(\003\022\022\n\nreceiverId\030\003 \001(\003\022\023\n\013sendCont" +
       "ent\030\004 \001(\t\022\021\n\ttimestamp\030\005 \001(\003\"G\n\023MessageP" +
       "ushResponse\022\014\n\004code\030\001 \001(\005\022\021\n\tmessageId\030\002" +
       " \001(\003\022\017\n\007message\030\003 \001(\t\",\n\024SendDelivererRe" +

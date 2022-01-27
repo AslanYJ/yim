@@ -6,7 +6,6 @@ import com.yjlan.im.common.proto.MessagePushResponse;
 import com.yjlan.im.common.protocol.MessageProtocol;
 import com.yjlan.im.common.protocol.MessageTypeManager;
 import com.yjlan.im.gateway.deliverer.DelivererManager;
-import com.yjlan.im.gateway.dispatcher.DispatcherManager;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.SocketChannel;

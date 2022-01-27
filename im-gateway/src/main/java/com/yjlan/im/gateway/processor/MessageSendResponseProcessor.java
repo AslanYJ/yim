@@ -29,7 +29,7 @@ public class MessageSendResponseProcessor implements MessageProcessor{
         LOGGER.info("gateway 收到 message send response , msg:{}",message.toString());
         MessageSendResponse messageSendResponse = (MessageSendResponse) message.getBody();
         // 拿到senderId的channel
-        String senderId = messageSendResponse.getSenderId();
+        Long senderId = messageSendResponse.getSenderId();
         final SocketChannel socketChannel = SessionManager.getSocketChannel(senderId);
         MessageProtocolUtils.sendMsg(socketChannel,messageSendResponse);
     }
