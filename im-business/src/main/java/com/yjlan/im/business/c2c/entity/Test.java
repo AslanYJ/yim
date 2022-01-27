@@ -1,4 +1,4 @@
-package com.yjlan.im.business.entity;
+package com.yjlan.im.business.c2c.entity;
 
 public class Test {
     private Integer id;

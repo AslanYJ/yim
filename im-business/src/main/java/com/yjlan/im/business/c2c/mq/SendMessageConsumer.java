@@ -1,9 +1,10 @@
-package com.yjlan.im.business.service.c2c.mq;
+package com.yjlan.im.business.c2c.mq;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.yjlan.im.business.dao.PeerToPeerMessageDao;
-import com.yjlan.im.business.entity.PeerToPeerMsg;
+import com.yjlan.im.business.c2c.dao.PeerToPeerMessageDao;
+import com.yjlan.im.business.c2c.entity.PeerToPeerMsg;
+import com.yjlan.im.business.common.RocketMqProducer;
 import com.yjlan.im.common.mq.RocketMqConstant;
 
 import org.apache.rocketmq.common.message.MessageExt;

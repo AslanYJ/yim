@@ -1,7 +1,7 @@
-package com.yjlan.im.business.dao;
+package com.yjlan.im.business.c2c.dao;
 
-import com.yjlan.im.business.entity.PeerToPeerMsg;
-import com.yjlan.im.business.mapper.PeerToPeerMsgMapper;
+import com.yjlan.im.business.c2c.entity.PeerToPeerMsg;
+import com.yjlan.im.business.c2c.mapper.PeerToPeerMsgMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

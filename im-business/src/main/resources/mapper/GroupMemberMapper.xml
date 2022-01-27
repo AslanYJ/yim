@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjlan.im.business.group.mapper.GroupMemberMapper">
+  <resultMap id="BaseResultMap" type="com.yjlan.im.business.group.entity.GroupMember">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="group_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="user_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="join_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="gmt_cerate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="gmt_update" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, group_id, user_id, join_time, gmt_cerate, gmt_update
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from group_member
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from group_member
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yjlan.im.business.group.entity.GroupMember">
+    insert into group_member (id, group_id, user_id, 
+      join_time, gmt_cerate, gmt_update
+      )
+    values (#{id,jdbcType=BIGINT}, #{groupId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{joinTime,jdbcType=TIMESTAMP}, #{gmtCerate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yjlan.im.business.group.entity.GroupMember">
+    insert into group_member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="joinTime != null">
+        join_time,
+      </if>
+      <if test="gmtCerate != null">
+        gmt_cerate,
+      </if>
+      <if test="gmtUpdate != null">
+        gmt_update,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="joinTime != null">
+        #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCerate != null">
+        #{gmtCerate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null">
+        #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yjlan.im.business.group.entity.GroupMember">
+    update group_member
+    <set>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="joinTime != null">
+        join_time = #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCerate != null">
+        gmt_cerate = #{gmtCerate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null">
+        gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yjlan.im.business.group.entity.GroupMember">
+    update group_member
+    set group_id = #{groupId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      join_time = #{joinTime,jdbcType=TIMESTAMP},
+      gmt_cerate = #{gmtCerate,jdbcType=TIMESTAMP},
+      gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

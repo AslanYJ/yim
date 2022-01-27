@@ -1,11 +1,13 @@
-package com.yjlan.im.business.entity;
+package com.yjlan.im.business.group.entity;
 
 import java.util.Date;
 
-public class PeerToPeerMsg {
+public class SendToGroupMsg {
     private Long id;
 
     private Long senderId;
+
+    private Long groupId;
 
     private Long receiverId;
 
@@ -17,9 +19,10 @@ public class PeerToPeerMsg {
 
     private String sendContent;
 
-    public PeerToPeerMsg(Long id, Long senderId, Long receiverId, Byte isReaded, Date gmtCreate, Date gmtUpdate, String sendContent) {
+    public SendToGroupMsg(Long id, Long senderId, Long groupId, Long receiverId, Byte isReaded, Date gmtCreate, Date gmtUpdate, String sendContent) {
         this.id = id;
         this.senderId = senderId;
+        this.groupId = groupId;
         this.receiverId = receiverId;
         this.isReaded = isReaded;
         this.gmtCreate = gmtCreate;
@@ -27,7 +30,7 @@ public class PeerToPeerMsg {
         this.sendContent = sendContent;
     }
 
-    public PeerToPeerMsg() {
+    public SendToGroupMsg() {
         super();
     }
 
@@ -45,6 +48,14 @@ public class PeerToPeerMsg {
 
     public void setSenderId(Long senderId) {
         this.senderId = senderId;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
     public Long getReceiverId() {

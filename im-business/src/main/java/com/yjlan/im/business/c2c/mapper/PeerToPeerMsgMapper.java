@@ -1,6 +1,6 @@
-package com.yjlan.im.business.mapper;
+package com.yjlan.im.business.c2c.mapper;
 
-import com.yjlan.im.business.entity.PeerToPeerMsg;
+import com.yjlan.im.business.c2c.entity.PeerToPeerMsg;
 
 public interface PeerToPeerMsgMapper {
     int deleteByPrimaryKey(Long id);

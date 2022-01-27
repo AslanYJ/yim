@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yjlan.im.business.c2c.mapper.PeerToPeerMsgMapper">
-  <resultMap id="BaseResultMap" type="com.yjlan.im.business.c2c.entity.PeerToPeerMsg">
+<mapper namespace="com.yjlan.im.business.group.mapper.SendToGroupMsgMapper">
+  <resultMap id="BaseResultMap" type="com.yjlan.im.business.group.entity.SendToGroupMsg">
     <constructor>
       <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="sender_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="group_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="receiver_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="is_readed" javaType="java.lang.Byte" jdbcType="TINYINT" />
       <arg column="gmt_create" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="gmt_update" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.yjlan.im.business.c2c.entity.PeerToPeerMsg">
+  <resultMap id="ResultMapWithBLOBs" type="com.yjlan.im.business.group.entity.SendToGroupMsg">
     <constructor>
       <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="sender_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="group_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="receiver_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="is_readed" javaType="java.lang.Byte" jdbcType="TINYINT" />
       <arg column="gmt_create" javaType="java.util.Date" jdbcType="TIMESTAMP" />
@@ -23,7 +25,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, sender_id, receiver_id, is_readed, gmt_create, gmt_update
+    id, sender_id, group_id, receiver_id, is_readed, gmt_create, gmt_update
   </sql>
   <sql id="Blob_Column_List">
     send_content
@@ -33,29 +35,32 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from peer_to_peer_msg
+    from send_to_group_msg
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from peer_to_peer_msg
+    delete from send_to_group_msg
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.yjlan.im.business.c2c.entity.PeerToPeerMsg">
-    insert into peer_to_peer_msg (id, sender_id, receiver_id, 
-      is_readed, gmt_create, gmt_update, 
-      send_content)
-    values (#{id,jdbcType=BIGINT}, #{senderId,jdbcType=BIGINT}, #{receiverId,jdbcType=BIGINT}, 
-      #{isReaded,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP}, 
-      #{sendContent,jdbcType=LONGVARCHAR})
+  <insert id="insert" parameterType="com.yjlan.im.business.group.entity.SendToGroupMsg">
+    insert into send_to_group_msg (id, sender_id, group_id, 
+      receiver_id, is_readed, gmt_create, 
+      gmt_update, send_content)
+    values (#{id,jdbcType=BIGINT}, #{senderId,jdbcType=BIGINT}, #{groupId,jdbcType=BIGINT}, 
+      #{receiverId,jdbcType=BIGINT}, #{isReaded,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtUpdate,jdbcType=TIMESTAMP}, #{sendContent,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.yjlan.im.business.c2c.entity.PeerToPeerMsg">
-    insert into peer_to_peer_msg
+  <insert id="insertSelective" parameterType="com.yjlan.im.business.group.entity.SendToGroupMsg">
+    insert into send_to_group_msg
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
       <if test="senderId != null">
         sender_id,
+      </if>
+      <if test="groupId != null">
+        group_id,
       </if>
       <if test="receiverId != null">
         receiver_id,
@@ -80,6 +85,9 @@
       <if test="senderId != null">
         #{senderId,jdbcType=BIGINT},
       </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=BIGINT},
+      </if>
       <if test="receiverId != null">
         #{receiverId,jdbcType=BIGINT},
       </if>
@@ -97,11 +105,14 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yjlan.im.business.c2c.entity.PeerToPeerMsg">
-    update peer_to_peer_msg
+  <update id="updateByPrimaryKeySelective" parameterType="com.yjlan.im.business.group.entity.SendToGroupMsg">
+    update send_to_group_msg
     <set>
       <if test="senderId != null">
         sender_id = #{senderId,jdbcType=BIGINT},
+      </if>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=BIGINT},
       </if>
       <if test="receiverId != null">
         receiver_id = #{receiverId,jdbcType=BIGINT},
@@ -121,9 +132,10 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yjlan.im.business.c2c.entity.PeerToPeerMsg">
-    update peer_to_peer_msg
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yjlan.im.business.group.entity.SendToGroupMsg">
+    update send_to_group_msg
     set sender_id = #{senderId,jdbcType=BIGINT},
+      group_id = #{groupId,jdbcType=BIGINT},
       receiver_id = #{receiverId,jdbcType=BIGINT},
       is_readed = #{isReaded,jdbcType=TINYINT},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
@@ -131,9 +143,10 @@
       send_content = #{sendContent,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yjlan.im.business.c2c.entity.PeerToPeerMsg">
-    update peer_to_peer_msg
+  <update id="updateByPrimaryKey" parameterType="com.yjlan.im.business.group.entity.SendToGroupMsg">
+    update send_to_group_msg
     set sender_id = #{senderId,jdbcType=BIGINT},
+      group_id = #{groupId,jdbcType=BIGINT},
       receiver_id = #{receiverId,jdbcType=BIGINT},
       is_readed = #{isReaded,jdbcType=TINYINT},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},

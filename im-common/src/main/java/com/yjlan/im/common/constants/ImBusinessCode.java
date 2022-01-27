@@ -13,6 +13,8 @@ public class ImBusinessCode {
      */
     public static final int RESPONSE_SUCCESS_CODE = 200;
     
+    public static final int RESPONSE_FAIL_CODE = -1;
+    
     
     /**
      * 异常码
