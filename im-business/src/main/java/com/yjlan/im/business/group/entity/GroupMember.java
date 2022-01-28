@@ -11,22 +11,9 @@ public class GroupMember {
 
     private Date joinTime;
 
-    private Date gmtCerate;
+    private Date gmtCreate;
 
     private Date gmtUpdate;
-
-    public GroupMember(Long id, Long groupId, Long userId, Date joinTime, Date gmtCerate, Date gmtUpdate) {
-        this.id = id;
-        this.groupId = groupId;
-        this.userId = userId;
-        this.joinTime = joinTime;
-        this.gmtCerate = gmtCerate;
-        this.gmtUpdate = gmtUpdate;
-    }
-
-    public GroupMember() {
-        super();
-    }
 
     public Long getId() {
         return id;
@@ -60,12 +47,12 @@ public class GroupMember {
         this.joinTime = joinTime;
     }
 
-    public Date getGmtCerate() {
-        return gmtCerate;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setGmtCerate(Date gmtCerate) {
-        this.gmtCerate = gmtCerate;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
     public Date getGmtUpdate() {

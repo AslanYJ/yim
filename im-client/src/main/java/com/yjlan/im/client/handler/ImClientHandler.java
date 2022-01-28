@@ -1,5 +1,6 @@
 package com.yjlan.im.client.handler;
 
+import com.yjlan.im.client.processor.ClientMessageProcessorFactory;
 import com.yjlan.im.common.constants.ImBusinessCode;
 import com.yjlan.im.common.proto.MessagePushRequest;
 import com.yjlan.im.common.proto.MessagePushResponse;
@@ -15,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.yjlan.im.common.protocol.MessageProtocol;
+import com.yjlan.im.common.utils.SpringBeanFactory;
 
 /**
  * @author yjlan
@@ -40,24 +42,26 @@ public class ImClientHandler extends SimpleChannelInboundHandler<MessageProtocol
     public void channelRead0(ChannelHandlerContext ctx, MessageProtocol messageProtocol) throws Exception {
         MessageHeader header = messageProtocol.getHeader();
         // 推送消息的请求
-        if (header.getMessageType() == MessageTypeManager.MESSAGE_PUSH_REQUEST.getMessageType()) {
-            MessagePushRequest messagePushRequest = (MessagePushRequest) messageProtocol.getBody();
-            LOGGER.info("receive message messageId:{},senderId:{},receiverId:{},sendContent:{}",
-                    messagePushRequest.getMessageId(),
-                    messagePushRequest.getSenderId(),
-                    messagePushRequest.getReceiverId(),
-                    messagePushRequest.getSendContent());
-            // 直接返回一个Response
-            MessagePushResponse messagePushResponse = MessagePushResponse.newBuilder()
-                    .setCode(ImBusinessCode.MESSAGE_READ_SUCCESS)
-                    .setMessageId(messagePushRequest.getMessageId())
-                    .setMessage("消息读取成功！")
-                    .build();
-            MessageProtocolUtils.sendMsg((SocketChannel) ctx.channel(),messagePushResponse);
-        } else if (header.getMessageType() == MessageTypeManager.MESSAGE_SEND_RESPONSE.getMessageType()) {
-            MessageSendResponse messageSendResponse = (MessageSendResponse) messageProtocol.getBody();
-            LOGGER.info("get send message response,msg:{}",messageSendResponse.toString());
-        }
+//        if (header.getMessageType() == MessageTypeManager.MESSAGE_PUSH_REQUEST.getMessageType()) {
+//            MessagePushRequest messagePushRequest = (MessagePushRequest) messageProtocol.getBody();
+//            LOGGER.info("receive message messageId:{},senderId:{},receiverId:{},sendContent:{}",
+//                    messagePushRequest.getMessageId(),
+//                    messagePushRequest.getSenderId(),
+//                    messagePushRequest.getReceiverId(),
+//                    messagePushRequest.getSendContent());
+//            // 直接返回一个Response
+//            MessagePushResponse messagePushResponse = MessagePushResponse.newBuilder()
+//                    .setCode(ImBusinessCode.MESSAGE_READ_SUCCESS)
+//                    .setMessageId(messagePushRequest.getMessageId())
+//                    .setMessage("消息读取成功！")
+//                    .build();
+//            MessageProtocolUtils.sendMsg((SocketChannel) ctx.channel(),messagePushResponse);
+//        } else if (header.getMessageType() == MessageTypeManager.MESSAGE_SEND_RESPONSE.getMessageType()) {
+//            MessageSendResponse messageSendResponse = (MessageSendResponse) messageProtocol.getBody();
+//            LOGGER.info("get send message response,msg:{}",messageSendResponse.toString());
+//        }
+        ClientMessageProcessorFactory clientMessageProcessorFactory = SpringBeanFactory.getBean(ClientMessageProcessorFactory.class);
+        clientMessageProcessorFactory.getProcessor(header.getMessageType()).process(messageProtocol,ctx);
     }
 
     @Override

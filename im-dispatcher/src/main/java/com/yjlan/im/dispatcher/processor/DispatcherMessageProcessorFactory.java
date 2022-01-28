@@ -1,4 +1,4 @@
-package com.yjlan.im.dispatcher.service.processor;
+package com.yjlan.im.dispatcher.processor;
 
 import java.util.HashMap;
 

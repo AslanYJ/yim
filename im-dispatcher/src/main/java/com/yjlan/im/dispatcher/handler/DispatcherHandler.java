@@ -1,11 +1,8 @@
 package com.yjlan.im.dispatcher.handler;
 
-import java.net.SocketAddress;
-
 import com.yjlan.im.common.protocol.MessageHeader;
-import com.yjlan.im.common.utils.ChannelIdUtils;
 import com.yjlan.im.common.utils.SpringBeanFactory;
-import com.yjlan.im.dispatcher.service.processor.DispatcherMessageProcessorFactory;
+import com.yjlan.im.dispatcher.processor.DispatcherMessageProcessorFactory;
 import com.yjlan.im.dispatcher.session.GatewaySessionManager;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;

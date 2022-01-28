@@ -29,15 +29,24 @@ public class RocketMqConstant {
     public static final String SEND_MESSAGE_RESPONSE = "send_message_response";
     
     /**
-     * send_message topic的消费组
+     * 推送群消息
      */
-    public static final String SEND_MESSAGE_GROUP = "send_message_group";
-
+    public static final String PUSH_GROUP_MESSAGE = "push_group_message";
     
     
     /**
-     * push_message topic的消费组(这个topic应该独立成一个消息推送服务，目前为了简单，合并在请求分发服务)
+     * 发送群聊信息请求
      */
+    public static final String SEND_GROUP_MESSAGE = "send_group_message";
+    
+    // =============== 消费组定义=========================================
+    
+    /**
+     * send_message topic的消费组
+     */
+    public static final String SEND_MESSAGE_GROUP = "send_message_group";
+    
+    
     public static final String PUSH_MESSAGE_GROUP = "push_message_group";
     
     
@@ -45,4 +54,10 @@ public class RocketMqConstant {
     
     
     public static final String SEND_MESSAGE_RESPONSE_GROUP = "send_message_response_group";
+    
+    
+    public static final String SEND_GROUP_MESSAGE_GROUP = "send_group_message_group";
+    
+    
+    public static final String PUSH_GROUP_MESSAGE_GROUP = "push_group_message_group";
 }

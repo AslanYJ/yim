@@ -1,4 +1,4 @@
-package com.yjlan.im.dispatcher.service.mq;
+package com.yjlan.im.dispatcher.mq;
 
 import javax.annotation.Resource;
 

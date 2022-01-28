@@ -7,12 +7,12 @@
       <arg column="group_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="user_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="join_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="gmt_cerate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="gmt_create" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="gmt_update" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, group_id, user_id, join_time, gmt_cerate, gmt_update
+    id, group_id, user_id, join_time, gmt_create, gmt_update
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -26,10 +26,10 @@
   </delete>
   <insert id="insert" parameterType="com.yjlan.im.business.group.entity.GroupMember">
     insert into group_member (id, group_id, user_id, 
-      join_time, gmt_cerate, gmt_update
+      join_time, gmt_create, gmt_update
       )
     values (#{id,jdbcType=BIGINT}, #{groupId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
-      #{joinTime,jdbcType=TIMESTAMP}, #{gmtCerate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP}
+      #{joinTime,jdbcType=TIMESTAMP}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yjlan.im.business.group.entity.GroupMember">
@@ -47,8 +47,8 @@
       <if test="joinTime != null">
         join_time,
       </if>
-      <if test="gmtCerate != null">
-        gmt_cerate,
+      <if test="gmtCreate != null">
+        gmt_create,
       </if>
       <if test="gmtUpdate != null">
         gmt_update,
@@ -67,8 +67,8 @@
       <if test="joinTime != null">
         #{joinTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="gmtCerate != null">
-        #{gmtCerate,jdbcType=TIMESTAMP},
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="gmtUpdate != null">
         #{gmtUpdate,jdbcType=TIMESTAMP},
@@ -87,8 +87,8 @@
       <if test="joinTime != null">
         join_time = #{joinTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="gmtCerate != null">
-        gmt_cerate = #{gmtCerate,jdbcType=TIMESTAMP},
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="gmtUpdate != null">
         gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
@@ -101,8 +101,15 @@
     set group_id = #{groupId,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=BIGINT},
       join_time = #{joinTime,jdbcType=TIMESTAMP},
-      gmt_cerate = #{gmtCerate,jdbcType=TIMESTAMP},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="listGroupMember" resultType="com.yjlan.im.business.group.entity.GroupMember">
+    select group_id as groupId,user_id as userId
+    from group_member
+    where group_id = #{groupId}
+    and join_time &lt;= #{timeStamp}
+  </select>
 </mapper>

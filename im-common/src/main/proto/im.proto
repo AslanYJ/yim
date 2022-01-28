@@ -57,6 +57,36 @@ message SendDelivererResponse {
     string message = 2;
 }
 
+message GroupMessageSendRequest {
+    int64 senderId = 1;
+    int64 groupId = 2;
+    string sendContent = 3;
+    int64 timeStamp = 4;
+}
+
+
+message GroupMessageSendResponse {
+    int32 code = 1;
+    string message = 2;
+    int64 senderId = 3;
+    int64 groupId = 4;
+    int64 timestamp = 5;
+}
+
+message GroupMessagePushRequest {
+    int64 senderId = 1;
+    int64 groupId = 2;
+    int64 reviverId = 3;
+    string sendContent = 4;
+    int64 timeStamp = 5;
+}
+
+message GroupMessagePushResponse {
+    int32 code = 1;
+    string message = 2;
+    int64 groupId = 3;
+}
+
 
 
 

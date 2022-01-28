@@ -6,6 +6,10 @@ import org.slf4j.LoggerFactory;
 import com.google.protobuf.MessageLite;
 import com.yjlan.im.common.proto.AuthenticateRequest;
 import com.yjlan.im.common.proto.AuthenticateResponse;
+import com.yjlan.im.common.proto.GroupMessagePushRequest;
+import com.yjlan.im.common.proto.GroupMessagePushResponse;
+import com.yjlan.im.common.proto.GroupMessageSendRequest;
+import com.yjlan.im.common.proto.GroupMessageSendResponse;
 import com.yjlan.im.common.proto.MessagePushRequest;
 import com.yjlan.im.common.proto.MessagePushResponse;
 import com.yjlan.im.common.proto.MessageSendRequest;
@@ -54,7 +58,27 @@ public enum MessageTypeManager {
     /**
      * 返回值，可能没用，先定义
      */
-    SEND_DELIVERER_RESPONSE(8, SendDelivererResponse.getDefaultInstance())
+    SEND_DELIVERER_RESPONSE(8, SendDelivererResponse.getDefaultInstance()),
+    
+    /**
+     * 群消息请求发送
+     */
+    GROUP_MESSAGE_SEND_REQUEST(9, GroupMessageSendRequest.getDefaultInstance()),
+    
+    /**
+     * 群消息请求发送返回
+     */
+    GROUP_MESSAGE_SEND_RESPONSE(10, GroupMessageSendResponse.getDefaultInstance()),
+    
+    /**
+     * 群消息推送
+     */
+    GROUP_MESSAGE_PUSH_REQUEST(11, GroupMessagePushRequest.getDefaultInstance()),
+    
+    /**
+     * 群消息推送返回
+     */
+    GROUP_MESSAGE_PUSH_RESPONSE(12, GroupMessagePushResponse.getDefaultInstance())
     ;
     private final static Logger LOGGER = LoggerFactory.getLogger(MessageTypeManager.class);
     

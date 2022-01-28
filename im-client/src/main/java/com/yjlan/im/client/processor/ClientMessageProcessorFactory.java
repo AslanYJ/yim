@@ -1,6 +1,7 @@
-package com.yjlan.im.deliverer.service.processor;
+package com.yjlan.im.client.processor;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -13,26 +14,25 @@ import com.yjlan.im.common.constants.Constant;
 /**
  * @author yjlan
  * @version V1.0
- * @Description 处理器工厂
- * @date 2022.01.24 14:42
+ * @Description 请求处理工厂
+ * @date 2022.01.28 11:27
  */
 @Component
-public class DelivererMessageProcessorFactory implements InitializingBean, ApplicationContextAware {
+public class ClientMessageProcessorFactory implements InitializingBean, ApplicationContextAware {
     
-    private static final HashMap<Integer, DelivererMessageProcessor> PROCESSOR_MAP
+    private static final Map<Integer,ClientMessageProcessor> PROCESSOR_MAP
             = new HashMap<>(Constant.DEFAULT_HASH_MAP_SIZE);
     
     private ApplicationContext applicationContext;
     
-    
-    public DelivererMessageProcessor getMessageProcessor(Integer messageManagerType) {
-        return PROCESSOR_MAP.get(messageManagerType);
-    }
-    
     @Override
     public void afterPropertiesSet() throws Exception {
-        applicationContext.getBeansOfType(DelivererMessageProcessor.class)
-                .values().forEach(e -> PROCESSOR_MAP.put(e.getMessageManagerType(),e));
+        applicationContext.getBeansOfType(ClientMessageProcessor.class)
+                .values().forEach(e -> PROCESSOR_MAP.put(e.getMessageType(),e));
+    }
+    
+    public ClientMessageProcessor getProcessor(Integer messageType) {
+        return PROCESSOR_MAP.get(messageType);
     }
     
     @Override

@@ -55,7 +55,7 @@ public class SendMessageConsumer implements RocketMQListener<MessageExt> {
     }
 
     /**
-     * 发送push消息到
+     * 发送push消息到MQ
      *
      * @param peerToPeerMsg 需要push的消息
      */

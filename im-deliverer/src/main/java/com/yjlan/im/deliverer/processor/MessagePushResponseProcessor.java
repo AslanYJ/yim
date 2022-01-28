@@ -1,4 +1,4 @@
-package com.yjlan.im.deliverer.service.processor;
+package com.yjlan.im.deliverer.processor;
 
 import javax.annotation.Resource;
 
@@ -13,7 +13,7 @@ import com.yjlan.im.common.mq.RocketMqConstant;
 import com.yjlan.im.common.proto.MessagePushResponse;
 import com.yjlan.im.common.protocol.MessageProtocol;
 import com.yjlan.im.common.protocol.MessageTypeManager;
-import com.yjlan.im.deliverer.service.mq.RocketMqProducer;
+import com.yjlan.im.deliverer.mq.RocketMqProducer;
 
 /**
  * @author yjlan

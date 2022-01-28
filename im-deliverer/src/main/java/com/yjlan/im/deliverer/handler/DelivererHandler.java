@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.yjlan.im.common.protocol.MessageHeader;
 import com.yjlan.im.common.protocol.MessageProtocol;
 import com.yjlan.im.common.utils.SpringBeanFactory;
-import com.yjlan.im.deliverer.service.processor.DelivererMessageProcessorFactory;
+import com.yjlan.im.deliverer.processor.DelivererMessageProcessorFactory;
 import com.yjlan.im.deliverer.session.GatewaySessionManager;
 
 

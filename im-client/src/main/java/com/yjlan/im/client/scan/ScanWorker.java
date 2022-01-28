@@ -35,9 +35,15 @@ public class ScanWorker extends Thread{
             if (commandType.equals("auth")) {
                 imNettyClient.authenticate(strings[1]);
             } else if (commandType.equals("send")){
+                // send-1-message 第二个参数是发送到谁那
                 Long receiverId = Long.valueOf(strings[1]);
                 String message = strings[2];
                 imNettyClient.sendMessagePeer2Peer(receiverId,message);
+            }  else if(commandType.equals("group")) {
+                // group-1-message; 第二个参数是发送到那个群
+                Long groupId = Long.valueOf(strings[1]);
+                String message = strings[2];
+                imNettyClient.sendGroupMessage(groupId,message);
             }
           
             LOGGER.info("msg :{}",msg);

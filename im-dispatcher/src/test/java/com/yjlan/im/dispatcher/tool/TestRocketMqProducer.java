@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.alibaba.fastjson.JSONObject;
 import com.yjlan.im.common.mq.RocketMqConstant;
 import com.yjlan.im.dispatcher.DispatcherApplication;
-import com.yjlan.im.dispatcher.service.mq.RocketMqProducer;
+import com.yjlan.im.dispatcher.mq.RocketMqProducer;
 
 /**
  * 测试Redis

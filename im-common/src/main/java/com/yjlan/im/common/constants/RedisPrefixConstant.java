@@ -10,4 +10,9 @@ public class RedisPrefixConstant {
      * 用户的Redis登录Session，只有认证通过以后才能新增
      */
     public static final String USER_SESSION = "im-user-session:";
+    
+    /**
+     * 群消息前缀
+     */
+    public static final String GROUP_MESSAGE = "im-group-message:";
 }

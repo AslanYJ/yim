@@ -1,5 +1,7 @@
 package com.yjlan.im.business;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -30,5 +32,14 @@ public class TestGroupService {
         createGroupDTO.setCreatorId(1L);
         createGroupDTO.setMaxMemberNum(10);
         groupService.createGroup(createGroupDTO);
+    }
+    
+    @Test
+    public void testQueryGroupMemberList() {
+        Long groupId = 1L;
+        Long timeStamp = System.currentTimeMillis();
+        Date date = new Date(timeStamp);
+        System.out.println(date);
+        System.out.println(groupService.listGroupMember(groupId,date));
     }
 }

@@ -54,6 +54,26 @@ public final class Im {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_SendDelivererResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_GroupMessageSendRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_GroupMessageSendRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_GroupMessageSendResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_GroupMessageSendResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_GroupMessagePushRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_GroupMessagePushRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_GroupMessagePushResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_GroupMessagePushResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -79,8 +99,18 @@ public final class Im {
       " \001(\003\022\017\n\007message\030\003 \001(\t\",\n\024SendDelivererRe" +
       "quest\022\024\n\014instanceCode\030\001 \001(\t\"6\n\025SendDeliv" +
       "ererResponse\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 " +
-      "\001(\tB\035\n\031com.yjlan.im.common.protoP\001b\006prot" +
-      "o3"
+      "\001(\t\"d\n\027GroupMessageSendRequest\022\020\n\010sender" +
+      "Id\030\001 \001(\003\022\017\n\007groupId\030\002 \001(\003\022\023\n\013sendContent" +
+      "\030\003 \001(\t\022\021\n\ttimeStamp\030\004 \001(\003\"o\n\030GroupMessag" +
+      "eSendResponse\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002",
+      " \001(\t\022\020\n\010senderId\030\003 \001(\003\022\017\n\007groupId\030\004 \001(\003\022" +
+      "\021\n\ttimestamp\030\005 \001(\003\"w\n\027GroupMessagePushRe" +
+      "quest\022\020\n\010senderId\030\001 \001(\003\022\017\n\007groupId\030\002 \001(\003" +
+      "\022\021\n\treviverId\030\003 \001(\003\022\023\n\013sendContent\030\004 \001(\t" +
+      "\022\021\n\ttimeStamp\030\005 \001(\003\"J\n\030GroupMessagePushR" +
+      "esponse\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 \001(\t\022\017" +
+      "\n\007groupId\030\003 \001(\003B\035\n\031com.yjlan.im.common.p" +
+      "rotoP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -142,6 +172,30 @@ public final class Im {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_SendDelivererResponse_descriptor,
         new java.lang.String[] { "Code", "Message", });
+    internal_static_GroupMessageSendRequest_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_GroupMessageSendRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_GroupMessageSendRequest_descriptor,
+        new java.lang.String[] { "SenderId", "GroupId", "SendContent", "TimeStamp", });
+    internal_static_GroupMessageSendResponse_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_GroupMessageSendResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_GroupMessageSendResponse_descriptor,
+        new java.lang.String[] { "Code", "Message", "SenderId", "GroupId", "Timestamp", });
+    internal_static_GroupMessagePushRequest_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_GroupMessagePushRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_GroupMessagePushRequest_descriptor,
+        new java.lang.String[] { "SenderId", "GroupId", "ReviverId", "SendContent", "TimeStamp", });
+    internal_static_GroupMessagePushResponse_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_GroupMessagePushResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_GroupMessagePushResponse_descriptor,
+        new java.lang.String[] { "Code", "Message", "GroupId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

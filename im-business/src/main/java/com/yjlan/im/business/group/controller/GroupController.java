@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yjlan.im.business.common.ResponseResult;
 import com.yjlan.im.business.group.dto.CreateGroupDTO;
+import com.yjlan.im.business.group.dto.JoinGroupDTO;
 import com.yjlan.im.business.group.service.GroupService;
 
 /**
@@ -33,6 +34,13 @@ public class GroupController {
     @ApiOperation(value = "创建一个群")
     public ResponseResult<Void> createGroup(@Valid @RequestBody CreateGroupDTO createGroupDTO) {
         groupService.createGroup(createGroupDTO);
+        return ResponseResult.success();
+    }
+    
+    @PostMapping("joinGroup")
+    @ApiOperation(value = "加入群")
+    public ResponseResult<Void> joinGroup(@Valid @RequestBody JoinGroupDTO joinGroupDTO) {
+        groupService.joinGroup(joinGroupDTO);
         return ResponseResult.success();
     }
 }

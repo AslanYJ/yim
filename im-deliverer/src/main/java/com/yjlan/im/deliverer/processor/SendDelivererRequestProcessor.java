@@ -1,4 +1,4 @@
-package com.yjlan.im.deliverer.service.processor;
+package com.yjlan.im.deliverer.processor;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.SocketChannel;

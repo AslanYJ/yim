@@ -8,6 +8,7 @@ import com.yjlan.im.common.codec.MessageProtocolEncoder;
 import com.yjlan.im.common.constants.ImBusinessCode;
 import com.yjlan.im.common.exception.ImException;
 import com.yjlan.im.common.proto.AuthenticateRequest;
+import com.yjlan.im.common.proto.GroupMessageSendRequest;
 import com.yjlan.im.common.proto.MessageSendRequest;
 import com.yjlan.im.common.utils.MessageProtocolUtils;
 import io.netty.bootstrap.Bootstrap;
@@ -116,6 +117,22 @@ public class ImNettyClient {
                 .setSenderId(clientConfig.getUserId())
                 .setReceiverId(receiverId)
                 .setSendContent(sendContent)
+                .build();
+        MessageProtocolUtils.sendMsg(socketChannel,request);
+    }
+    
+    
+    /**
+     * 发送群消息
+     * @param groupId 群组id
+     * @param sendContent 内容
+     */
+    public void sendGroupMessage(Long groupId,String sendContent) {
+        GroupMessageSendRequest request = GroupMessageSendRequest.newBuilder()
+                .setSenderId(clientConfig.getUserId())
+                .setGroupId(groupId)
+                .setSendContent(sendContent)
+                .setTimeStamp(System.currentTimeMillis())
                 .build();
         MessageProtocolUtils.sendMsg(socketChannel,request);
     }
