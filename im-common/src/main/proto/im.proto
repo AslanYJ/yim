@@ -71,6 +71,8 @@ message GroupMessageSendResponse {
     int64 senderId = 3;
     int64 groupId = 4;
     int64 timestamp = 5;
+    int64 receiverId = 6;
+    string sendContent = 7;
 }
 
 message GroupMessagePushRequest {
@@ -85,6 +87,10 @@ message GroupMessagePushResponse {
     int32 code = 1;
     string message = 2;
     int64 groupId = 3;
+    int64 senderId = 4;
+    int64 receiverId = 5;
+    string sendContent = 6;
+    int64 timeStamp = 7;
 }
 
 

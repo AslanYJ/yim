@@ -6,6 +6,7 @@ import java.util.List;
 import com.yjlan.im.business.group.dto.CreateGroupDTO;
 import com.yjlan.im.business.group.dto.JoinGroupDTO;
 import com.yjlan.im.business.group.entity.GroupMember;
+import com.yjlan.im.business.group.entity.SendToGroupMsg;
 
 /**
  * @author yjlan
@@ -35,4 +36,11 @@ public interface GroupService {
      * @return 返回群成员
      */
     List<GroupMember> listGroupMember(Long groupId, Date date);
+    
+    
+    /**
+     * 保存历史消息
+     * @param sendToGroupMsg 历史消息
+     */
+    void saveGroupMessage(SendToGroupMsg sendToGroupMsg);
 }

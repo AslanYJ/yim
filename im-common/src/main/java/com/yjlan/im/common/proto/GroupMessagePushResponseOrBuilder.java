@@ -26,4 +26,29 @@ public interface GroupMessagePushResponseOrBuilder extends
    * <code>optional int64 groupId = 3;</code>
    */
   long getGroupId();
+
+  /**
+   * <code>optional int64 senderId = 4;</code>
+   */
+  long getSenderId();
+
+  /**
+   * <code>optional int64 receiverId = 5;</code>
+   */
+  long getReceiverId();
+
+  /**
+   * <code>optional string sendContent = 6;</code>
+   */
+  java.lang.String getSendContent();
+  /**
+   * <code>optional string sendContent = 6;</code>
+   */
+  com.google.protobuf.ByteString
+      getSendContentBytes();
+
+  /**
+   * <code>optional int64 timeStamp = 7;</code>
+   */
+  long getTimeStamp();
 }

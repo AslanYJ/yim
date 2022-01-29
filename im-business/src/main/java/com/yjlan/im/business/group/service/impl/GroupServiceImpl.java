@@ -13,6 +13,7 @@ import com.yjlan.im.business.group.dto.CreateGroupDTO;
 import com.yjlan.im.business.group.dto.JoinGroupDTO;
 import com.yjlan.im.business.group.entity.GroupInfo;
 import com.yjlan.im.business.group.entity.GroupMember;
+import com.yjlan.im.business.group.entity.SendToGroupMsg;
 import com.yjlan.im.business.group.service.GroupService;
 import com.yjlan.im.common.utils.ConvertBeanUtils;
 
@@ -49,4 +50,12 @@ public class GroupServiceImpl implements GroupService {
     public List<GroupMember> listGroupMember(Long groupId, Date date) {
         return groupDao.listGroupMember(groupId,date);
     }
+    
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void saveGroupMessage(SendToGroupMsg sendToGroupMsg) {
+        groupDao.saveGroupMessage(sendToGroupMsg);
+    }
+    
+    
 }

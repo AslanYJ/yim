@@ -101,16 +101,19 @@ public final class Im {
       "ererResponse\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 " +
       "\001(\t\"d\n\027GroupMessageSendRequest\022\020\n\010sender" +
       "Id\030\001 \001(\003\022\017\n\007groupId\030\002 \001(\003\022\023\n\013sendContent" +
-      "\030\003 \001(\t\022\021\n\ttimeStamp\030\004 \001(\003\"o\n\030GroupMessag" +
-      "eSendResponse\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002",
-      " \001(\t\022\020\n\010senderId\030\003 \001(\003\022\017\n\007groupId\030\004 \001(\003\022" +
-      "\021\n\ttimestamp\030\005 \001(\003\"w\n\027GroupMessagePushRe" +
-      "quest\022\020\n\010senderId\030\001 \001(\003\022\017\n\007groupId\030\002 \001(\003" +
-      "\022\021\n\treviverId\030\003 \001(\003\022\023\n\013sendContent\030\004 \001(\t" +
-      "\022\021\n\ttimeStamp\030\005 \001(\003\"J\n\030GroupMessagePushR" +
-      "esponse\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 \001(\t\022\017" +
-      "\n\007groupId\030\003 \001(\003B\035\n\031com.yjlan.im.common.p" +
-      "rotoP\001b\006proto3"
+      "\030\003 \001(\t\022\021\n\ttimeStamp\030\004 \001(\003\"\230\001\n\030GroupMessa" +
+      "geSendResponse\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030",
+      "\002 \001(\t\022\020\n\010senderId\030\003 \001(\003\022\017\n\007groupId\030\004 \001(\003" +
+      "\022\021\n\ttimestamp\030\005 \001(\003\022\022\n\nreceiverId\030\006 \001(\003\022" +
+      "\023\n\013sendContent\030\007 \001(\t\"w\n\027GroupMessagePush" +
+      "Request\022\020\n\010senderId\030\001 \001(\003\022\017\n\007groupId\030\002 \001" +
+      "(\003\022\021\n\treviverId\030\003 \001(\003\022\023\n\013sendContent\030\004 \001" +
+      "(\t\022\021\n\ttimeStamp\030\005 \001(\003\"\230\001\n\030GroupMessagePu" +
+      "shResponse\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 \001(" +
+      "\t\022\017\n\007groupId\030\003 \001(\003\022\020\n\010senderId\030\004 \001(\003\022\022\n\n" +
+      "receiverId\030\005 \001(\003\022\023\n\013sendContent\030\006 \001(\t\022\021\n" +
+      "\ttimeStamp\030\007 \001(\003B\035\n\031com.yjlan.im.common.",
+      "protoP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -183,7 +186,7 @@ public final class Im {
     internal_static_GroupMessageSendResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GroupMessageSendResponse_descriptor,
-        new java.lang.String[] { "Code", "Message", "SenderId", "GroupId", "Timestamp", });
+        new java.lang.String[] { "Code", "Message", "SenderId", "GroupId", "Timestamp", "ReceiverId", "SendContent", });
     internal_static_GroupMessagePushRequest_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_GroupMessagePushRequest_fieldAccessorTable = new
@@ -195,7 +198,7 @@ public final class Im {
     internal_static_GroupMessagePushResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GroupMessagePushResponse_descriptor,
-        new java.lang.String[] { "Code", "Message", "GroupId", });
+        new java.lang.String[] { "Code", "Message", "GroupId", "SenderId", "ReceiverId", "SendContent", "TimeStamp", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

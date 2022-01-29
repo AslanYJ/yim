@@ -9,8 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import com.yjlan.im.business.group.entity.GroupInfo;
 import com.yjlan.im.business.group.entity.GroupMember;
+import com.yjlan.im.business.group.entity.SendToGroupMsg;
 import com.yjlan.im.business.group.mapper.GroupInfoMapper;
 import com.yjlan.im.business.group.mapper.GroupMemberMapper;
+import com.yjlan.im.business.group.mapper.SendToGroupMsgMapper;
 
 /**
  * @author yjlan
@@ -27,6 +29,9 @@ public class GroupDao {
     @Resource
     private GroupMemberMapper groupMemberMapper;
     
+    @Resource
+    private SendToGroupMsgMapper sendToGroupMsgMapper;
+    
     public void saveGroupInfo(GroupInfo groupInfo) {
         groupInfoMapper.insertSelective(groupInfo);
     }
@@ -37,5 +42,9 @@ public class GroupDao {
     
     public List<GroupMember> listGroupMember(Long groupId, Date date) {
         return groupMemberMapper.listGroupMember(groupId,date);
+    }
+    
+    public void saveGroupMessage(SendToGroupMsg sendToGroupMsg) {
+        sendToGroupMsgMapper.insertSelective(sendToGroupMsg);
     }
 }

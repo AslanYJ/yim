@@ -16,13 +16,13 @@ import org.springframework.util.CollectionUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.yjlan.im.business.c2c.dao.PeerToPeerMessageDao;
 import com.yjlan.im.business.c2c.entity.PeerToPeerMsg;
 import com.yjlan.im.business.common.RocketMqProducer;
-import com.yjlan.im.business.group.dao.GroupDao;
 import com.yjlan.im.business.group.entity.GroupMember;
+import com.yjlan.im.business.group.entity.SendToGroupMsg;
 import com.yjlan.im.business.group.service.GroupService;
 import com.yjlan.im.common.constants.RedisPrefixConstant;
+import com.yjlan.im.common.entity.StoreMessage;
 import com.yjlan.im.common.mq.RocketMqConstant;
 
 /**
@@ -68,6 +68,7 @@ public class SendGroupMessageConsumer implements RocketMQListener<MessageExt> {
             LOGGER.info("groupId:{},群成员为空,不发送消息",groupId);
             return;
         }
+        StoreMessage message = new StoreMessage();
         for (GroupMember groupMember : list) {
             // 过滤掉自己
             if (groupMember.getUserId().equals(senderId)) {
@@ -76,20 +77,12 @@ public class SendGroupMessageConsumer implements RocketMQListener<MessageExt> {
             // 对于每一个群成员生成一个群消息
             String key = RedisPrefixConstant.GROUP_MESSAGE + groupMember.getUserId()
                     + "-" + groupMember.getGroupId();
-            redisTemplate.opsForZSet().add(key,sendContent,Double.valueOf(timeStamp));
+            message.setSendContent(sendContent);
+            message.setTimeStamp(timeStamp);
+            redisTemplate.opsForZSet().add(key,JSONObject.toJSONString(message),Double.valueOf(timeStamp));
             jsonObject.put("receiverId",groupMember.getUserId());
             rocketMqProducer.sendMsg(RocketMqConstant.PUSH_GROUP_MESSAGE,jsonObject.toJSONString());
         }
         // todo 推送历史消息 or 直接同步进行存储
-    }
-
-    /**
-     * 发送push消息到
-     *
-     * @param peerToPeerMsg 需要push的消息
-     */
-    private void sendPushMessage(PeerToPeerMsg peerToPeerMsg) {
-        rocketMqProducer.sendMsg(RocketMqConstant.PUSH_MESSAGE, JSON.toJSONString(peerToPeerMsg));
-        
     }
 }

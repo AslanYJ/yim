@@ -32,4 +32,6 @@ public class ImBusinessCode {
     public static final int MESSAGE_READ_SUCCESS = 3000;
 
     public static final int MESSAGE_READ_FAIL = 3001;
+    
+    public static final int PUSH_MESSAGE_READ_SUCCESS = 4000;
 }

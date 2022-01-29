@@ -34,6 +34,9 @@ public class RocketMqConstant {
     public static final String PUSH_GROUP_MESSAGE = "push_group_message";
     
     
+    public static final String PUSH_GROUP_MESSAGE_RESPONSE = "push_group_message_response";
+    
+    
     /**
      * 发送群聊信息请求
      */
@@ -60,4 +63,7 @@ public class RocketMqConstant {
     
     
     public static final String PUSH_GROUP_MESSAGE_GROUP = "push_group_message_group";
+    
+    public static final String PUSH_GROUP_MESSAGE_RESPONSE_GROUP = "push_group_message_response_group";
+    
 }

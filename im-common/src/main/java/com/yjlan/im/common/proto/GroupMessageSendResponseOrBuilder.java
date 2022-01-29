@@ -36,4 +36,19 @@ public interface GroupMessageSendResponseOrBuilder extends
    * <code>optional int64 timestamp = 5;</code>
    */
   long getTimestamp();
+
+  /**
+   * <code>optional int64 receiverId = 6;</code>
+   */
+  long getReceiverId();
+
+  /**
+   * <code>optional string sendContent = 7;</code>
+   */
+  java.lang.String getSendContent();
+  /**
+   * <code>optional string sendContent = 7;</code>
+   */
+  com.google.protobuf.ByteString
+      getSendContentBytes();
 }

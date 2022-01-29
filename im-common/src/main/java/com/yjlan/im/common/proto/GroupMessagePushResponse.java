@@ -18,6 +18,10 @@ public  final class GroupMessagePushResponse extends
     code_ = 0;
     message_ = "";
     groupId_ = 0L;
+    senderId_ = 0L;
+    receiverId_ = 0L;
+    sendContent_ = "";
+    timeStamp_ = 0L;
   }
 
   @java.lang.Override
@@ -59,6 +63,27 @@ public  final class GroupMessagePushResponse extends
           case 24: {
 
             groupId_ = input.readInt64();
+            break;
+          }
+          case 32: {
+
+            senderId_ = input.readInt64();
+            break;
+          }
+          case 40: {
+
+            receiverId_ = input.readInt64();
+            break;
+          }
+          case 50: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            sendContent_ = s;
+            break;
+          }
+          case 56: {
+
+            timeStamp_ = input.readInt64();
             break;
           }
         }
@@ -136,6 +161,67 @@ public  final class GroupMessagePushResponse extends
     return groupId_;
   }
 
+  public static final int SENDERID_FIELD_NUMBER = 4;
+  private long senderId_;
+  /**
+   * <code>optional int64 senderId = 4;</code>
+   */
+  public long getSenderId() {
+    return senderId_;
+  }
+
+  public static final int RECEIVERID_FIELD_NUMBER = 5;
+  private long receiverId_;
+  /**
+   * <code>optional int64 receiverId = 5;</code>
+   */
+  public long getReceiverId() {
+    return receiverId_;
+  }
+
+  public static final int SENDCONTENT_FIELD_NUMBER = 6;
+  private volatile java.lang.Object sendContent_;
+  /**
+   * <code>optional string sendContent = 6;</code>
+   */
+  public java.lang.String getSendContent() {
+    java.lang.Object ref = sendContent_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      sendContent_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>optional string sendContent = 6;</code>
+   */
+  public com.google.protobuf.ByteString
+      getSendContentBytes() {
+    java.lang.Object ref = sendContent_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      sendContent_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int TIMESTAMP_FIELD_NUMBER = 7;
+  private long timeStamp_;
+  /**
+   * <code>optional int64 timeStamp = 7;</code>
+   */
+  public long getTimeStamp() {
+    return timeStamp_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -157,6 +243,18 @@ public  final class GroupMessagePushResponse extends
     if (groupId_ != 0L) {
       output.writeInt64(3, groupId_);
     }
+    if (senderId_ != 0L) {
+      output.writeInt64(4, senderId_);
+    }
+    if (receiverId_ != 0L) {
+      output.writeInt64(5, receiverId_);
+    }
+    if (!getSendContentBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, sendContent_);
+    }
+    if (timeStamp_ != 0L) {
+      output.writeInt64(7, timeStamp_);
+    }
   }
 
   public int getSerializedSize() {
@@ -174,6 +272,21 @@ public  final class GroupMessagePushResponse extends
     if (groupId_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(3, groupId_);
+    }
+    if (senderId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(4, senderId_);
+    }
+    if (receiverId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(5, receiverId_);
+    }
+    if (!getSendContentBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, sendContent_);
+    }
+    if (timeStamp_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(7, timeStamp_);
     }
     memoizedSize = size;
     return size;
@@ -197,6 +310,14 @@ public  final class GroupMessagePushResponse extends
         .equals(other.getMessage());
     result = result && (getGroupId()
         == other.getGroupId());
+    result = result && (getSenderId()
+        == other.getSenderId());
+    result = result && (getReceiverId()
+        == other.getReceiverId());
+    result = result && getSendContent()
+        .equals(other.getSendContent());
+    result = result && (getTimeStamp()
+        == other.getTimeStamp());
     return result;
   }
 
@@ -214,6 +335,17 @@ public  final class GroupMessagePushResponse extends
     hash = (37 * hash) + GROUPID_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getGroupId());
+    hash = (37 * hash) + SENDERID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getSenderId());
+    hash = (37 * hash) + RECEIVERID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getReceiverId());
+    hash = (37 * hash) + SENDCONTENT_FIELD_NUMBER;
+    hash = (53 * hash) + getSendContent().hashCode();
+    hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getTimeStamp());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -338,6 +470,14 @@ public  final class GroupMessagePushResponse extends
 
       groupId_ = 0L;
 
+      senderId_ = 0L;
+
+      receiverId_ = 0L;
+
+      sendContent_ = "";
+
+      timeStamp_ = 0L;
+
       return this;
     }
 
@@ -363,6 +503,10 @@ public  final class GroupMessagePushResponse extends
       result.code_ = code_;
       result.message_ = message_;
       result.groupId_ = groupId_;
+      result.senderId_ = senderId_;
+      result.receiverId_ = receiverId_;
+      result.sendContent_ = sendContent_;
+      result.timeStamp_ = timeStamp_;
       onBuilt();
       return result;
     }
@@ -413,6 +557,19 @@ public  final class GroupMessagePushResponse extends
       }
       if (other.getGroupId() != 0L) {
         setGroupId(other.getGroupId());
+      }
+      if (other.getSenderId() != 0L) {
+        setSenderId(other.getSenderId());
+      }
+      if (other.getReceiverId() != 0L) {
+        setReceiverId(other.getReceiverId());
+      }
+      if (!other.getSendContent().isEmpty()) {
+        sendContent_ = other.sendContent_;
+        onChanged();
+      }
+      if (other.getTimeStamp() != 0L) {
+        setTimeStamp(other.getTimeStamp());
       }
       onChanged();
       return this;
@@ -557,6 +714,153 @@ public  final class GroupMessagePushResponse extends
     public Builder clearGroupId() {
       
       groupId_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long senderId_ ;
+    /**
+     * <code>optional int64 senderId = 4;</code>
+     */
+    public long getSenderId() {
+      return senderId_;
+    }
+    /**
+     * <code>optional int64 senderId = 4;</code>
+     */
+    public Builder setSenderId(long value) {
+      
+      senderId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional int64 senderId = 4;</code>
+     */
+    public Builder clearSenderId() {
+      
+      senderId_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long receiverId_ ;
+    /**
+     * <code>optional int64 receiverId = 5;</code>
+     */
+    public long getReceiverId() {
+      return receiverId_;
+    }
+    /**
+     * <code>optional int64 receiverId = 5;</code>
+     */
+    public Builder setReceiverId(long value) {
+      
+      receiverId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional int64 receiverId = 5;</code>
+     */
+    public Builder clearReceiverId() {
+      
+      receiverId_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object sendContent_ = "";
+    /**
+     * <code>optional string sendContent = 6;</code>
+     */
+    public java.lang.String getSendContent() {
+      java.lang.Object ref = sendContent_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sendContent_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string sendContent = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSendContentBytes() {
+      java.lang.Object ref = sendContent_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sendContent_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string sendContent = 6;</code>
+     */
+    public Builder setSendContent(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      sendContent_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string sendContent = 6;</code>
+     */
+    public Builder clearSendContent() {
+      
+      sendContent_ = getDefaultInstance().getSendContent();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string sendContent = 6;</code>
+     */
+    public Builder setSendContentBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      sendContent_ = value;
+      onChanged();
+      return this;
+    }
+
+    private long timeStamp_ ;
+    /**
+     * <code>optional int64 timeStamp = 7;</code>
+     */
+    public long getTimeStamp() {
+      return timeStamp_;
+    }
+    /**
+     * <code>optional int64 timeStamp = 7;</code>
+     */
+    public Builder setTimeStamp(long value) {
+      
+      timeStamp_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional int64 timeStamp = 7;</code>
+     */
+    public Builder clearTimeStamp() {
+      
+      timeStamp_ = 0L;
       onChanged();
       return this;
     }
