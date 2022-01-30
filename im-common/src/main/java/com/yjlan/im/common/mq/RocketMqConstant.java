@@ -41,6 +41,11 @@ public class RocketMqConstant {
      * 发送群聊信息请求
      */
     public static final String SEND_GROUP_MESSAGE = "send_group_message";
+
+    /**
+     * 发送群聊消息请求响应
+     */
+    public static final String SEND_GROUP_MESSAGE_RESPONSE = "send_group_message_response";
     
     // =============== 消费组定义=========================================
     
@@ -65,5 +70,7 @@ public class RocketMqConstant {
     public static final String PUSH_GROUP_MESSAGE_GROUP = "push_group_message_group";
     
     public static final String PUSH_GROUP_MESSAGE_RESPONSE_GROUP = "push_group_message_response_group";
-    
+
+
+    public static final String SEND_GROUP_MESSAGE_RESPONSE_GROUP = "send_group_message_response_group";
 }

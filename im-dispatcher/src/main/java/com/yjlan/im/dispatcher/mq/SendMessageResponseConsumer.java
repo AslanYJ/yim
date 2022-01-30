@@ -2,6 +2,7 @@ package com.yjlan.im.dispatcher.mq;
 
 import javax.annotation.Resource;
 
+import com.yjlan.im.common.constants.ImBusinessCode;
 import io.netty.channel.socket.SocketChannel;
 
 import org.apache.commons.lang3.StringUtils;
@@ -51,8 +52,8 @@ public class SendMessageResponseConsumer implements RocketMQListener<MessageExt>
         MessageSendResponse response = MessageSendResponse.newBuilder()
                 .setSenderId(jsonObject.getLong("senderId"))
                 .setReceiverId(jsonObject.getLong("receiverId"))
-                .setMessage(jsonObject.getString("message"))
-                .setCode(jsonObject.getIntValue("code"))
+                .setMessage(jsonObject.getString("单聊消息读取成功"))
+                .setCode(ImBusinessCode.MESSAGE_READ_SUCCESS)
                 .setTimestamp(jsonObject.getLongValue("timeStamp"))
                 .build();
         if (StringUtils.isNotBlank(instanceCode)) {

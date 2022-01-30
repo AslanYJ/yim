@@ -59,6 +59,8 @@ public class PushGroupMessageResponseConsumer implements RocketMQListener<Messag
                     groupId,receiverId,JSONObject.toJSONString(storeMessage));
         } else {
             // 发送 MQ 到send_group_message_response
+            LOGGER.info("receiverId:{} 已经收到对应的消息，删除对应的离线消息",receiverId);
+            rocketMqProducer.sendMsg(RocketMqConstant.SEND_GROUP_MESSAGE_RESPONSE, jsonObject.toJSONString());
         }
     }
 }

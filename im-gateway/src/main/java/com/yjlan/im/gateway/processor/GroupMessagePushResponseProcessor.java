@@ -2,6 +2,7 @@ package com.yjlan.im.gateway.processor;
 
 import javax.annotation.Resource;
 
+import com.yjlan.im.gateway.deliverer.DelivererManager;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.SocketChannel;
 
@@ -26,13 +27,13 @@ public class GroupMessagePushResponseProcessor implements MessageProcessor{
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupMessagePushResponseProcessor.class);
     
     @Resource
-    private DispatcherManager dispatcherManager;
+    private DelivererManager delivererManager;
     
     @Override
     public void process(MessageProtocol message, ChannelHandlerContext ctx) {
-        LOGGER.info("gateway 收到group message push 的响应");
+        LOGGER.info("gateway 收到group message push 的响应,投递到deliverer");
         GroupMessagePushResponse response = (GroupMessagePushResponse) message.getBody();
-        dispatcherManager.forwardToDispatcher((SocketChannel) ctx.channel(),response);
+        delivererManager.forwardToDeliverer((SocketChannel) ctx.channel(),response);
     }
     
     @Override
