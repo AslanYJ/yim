@@ -1,4 +1,4 @@
-package com.yjlan.im.business.common;
+package com.yjlan.im.common.result;
 
 import java.io.Serializable;
 import java.util.Objects;

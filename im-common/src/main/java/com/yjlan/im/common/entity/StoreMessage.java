@@ -12,8 +12,22 @@ public class StoreMessage {
     private Long timeStamp;
     
     private String sendContent;
-    
-    
+
+    private Long groupId;
+
+
+    public StoreMessage() {
+        this.groupId = 0L;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
     public Long getTimeStamp() {
         return timeStamp;
     }

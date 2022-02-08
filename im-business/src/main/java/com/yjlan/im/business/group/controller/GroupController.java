@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yjlan.im.business.common.ResponseResult;
+import com.yjlan.im.common.result.ResponseResult;
 import com.yjlan.im.business.group.dto.CreateGroupDTO;
 import com.yjlan.im.business.group.dto.JoinGroupDTO;
 import com.yjlan.im.business.group.service.GroupService;

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.yjlan.im.business.common.ResponseResult;
+import com.yjlan.im.common.result.ResponseResult;
 import com.yjlan.im.common.exception.ImException;
 
 /**

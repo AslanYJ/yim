@@ -12,7 +12,7 @@ public class RedisPrefixConstant {
     public static final String USER_SESSION = "im-user-session:";
     
     /**
-     * 群消息前缀
+     * 消息前缀
      */
-    public static final String GROUP_MESSAGE = "im-group-message:";
+    public static final String IM_MESSAGE = "im-message:";
 }

@@ -1,4 +1,4 @@
-package com.yjlan.im.business.offelinemessage.mq;
+package com.yjlan.im.business.offlinemessage.mq;
 
 import javax.annotation.Resource;
 
@@ -50,7 +50,7 @@ public class PushGroupMessageResponseConsumer implements RocketMQListener<Messag
         StoreMessage storeMessage = new StoreMessage();
         storeMessage.setSendContent(sendContent);
         storeMessage.setTimeStamp(timeStamp);
-        String key = RedisPrefixConstant.GROUP_MESSAGE + receiverId
+        String key = RedisPrefixConstant.IM_MESSAGE + receiverId
                 + "-" + groupId;
         // 如果已经读了，那么就删除对应的Redis中的聊天记录，否则就是离线消息
         Long removeResult = redisTemplate.opsForZSet().remove(key,JSONObject.toJSONString(storeMessage));

@@ -10,6 +10,7 @@
         <module>im-dispatcher</module>
         <module>im-business</module>
         <module>im-deliverer</module>
+        <module>im-business-api</module>
     </modules>
 
     <parent>

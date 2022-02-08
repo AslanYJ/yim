@@ -1,4 +1,4 @@
-package com.yjlan.im.business.common;
+package com.yjlan.im.common.result;
 
 import java.util.Collections;
 import java.util.List;

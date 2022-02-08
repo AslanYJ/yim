@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.yjlan.im.business.common.SaveMessageUtils;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
@@ -14,12 +15,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.yjlan.im.business.c2c.entity.PeerToPeerMsg;
 import com.yjlan.im.business.common.RocketMqProducer;
 import com.yjlan.im.business.group.entity.GroupMember;
-import com.yjlan.im.business.group.entity.SendToGroupMsg;
 import com.yjlan.im.business.group.service.GroupService;
 import com.yjlan.im.common.constants.RedisPrefixConstant;
 import com.yjlan.im.common.entity.StoreMessage;
@@ -43,15 +41,16 @@ import com.yjlan.im.common.mq.RocketMqConstant;
 public class SendGroupMessageConsumer implements RocketMQListener<MessageExt> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SendGroupMessageConsumer.class);
-    
-    @Resource
-    private RedisTemplate<String,String> redisTemplate;
+
 
     @Resource
     private RocketMqProducer rocketMqProducer;
     
     @Resource
     private GroupService groupService;
+
+    @Resource
+    private SaveMessageUtils saveMessageUtils;
 
     @Override
     public void onMessage(MessageExt messageExt) {
@@ -74,13 +73,12 @@ public class SendGroupMessageConsumer implements RocketMQListener<MessageExt> {
             if (groupMember.getUserId().equals(senderId)) {
                 continue;
             }
-            // 对于每一个群成员生成一个群消息
-            String key = RedisPrefixConstant.GROUP_MESSAGE + groupMember.getUserId()
-                    + "-" + groupMember.getGroupId();
-            message.setSendContent(sendContent);
+            message.setGroupId(groupId);
             message.setTimeStamp(timeStamp);
-            redisTemplate.opsForZSet().add(key,JSONObject.toJSONString(message),Double.valueOf(timeStamp));
+            message.setSendContent(sendContent);
             jsonObject.put("receiverId",groupMember.getUserId());
+            // 保存消息到redis
+            saveMessageUtils.saveMessageToRedis(groupMember.getUserId(),message);
             rocketMqProducer.sendMsg(RocketMqConstant.PUSH_GROUP_MESSAGE,jsonObject.toJSONString());
         }
         // todo 推送历史消息 or 直接同步进行存储
