@@ -13,17 +13,37 @@ public interface MessagePushResponseOrBuilder extends
   int getCode();
 
   /**
-   * <code>optional int64 messageId = 2;</code>
-   */
-  long getMessageId();
-
-  /**
-   * <code>optional string message = 3;</code>
+   * <code>optional string message = 2;</code>
    */
   java.lang.String getMessage();
   /**
-   * <code>optional string message = 3;</code>
+   * <code>optional string message = 2;</code>
    */
   com.google.protobuf.ByteString
       getMessageBytes();
+
+  /**
+   * <code>optional int64 senderId = 3;</code>
+   */
+  long getSenderId();
+
+  /**
+   * <code>optional int64 receiverId = 4;</code>
+   */
+  long getReceiverId();
+
+  /**
+   * <code>optional string sendContent = 5;</code>
+   */
+  java.lang.String getSendContent();
+  /**
+   * <code>optional string sendContent = 5;</code>
+   */
+  com.google.protobuf.ByteString
+      getSendContentBytes();
+
+  /**
+   * <code>optional int64 timestamp = 6;</code>
+   */
+  long getTimestamp();
 }

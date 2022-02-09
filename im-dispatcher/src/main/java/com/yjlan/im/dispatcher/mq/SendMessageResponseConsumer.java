@@ -52,8 +52,8 @@ public class SendMessageResponseConsumer implements RocketMQListener<MessageExt>
         MessageSendResponse response = MessageSendResponse.newBuilder()
                 .setSenderId(jsonObject.getLong("senderId"))
                 .setReceiverId(jsonObject.getLong("receiverId"))
-                .setMessage(jsonObject.getString("单聊消息读取成功"))
-                .setCode(ImBusinessCode.MESSAGE_READ_SUCCESS)
+                .setMessage(jsonObject.getString("message"))
+                .setCode(jsonObject.getInteger("code"))
                 .setTimestamp(jsonObject.getLongValue("timeStamp"))
                 .build();
         if (StringUtils.isNotBlank(instanceCode)) {

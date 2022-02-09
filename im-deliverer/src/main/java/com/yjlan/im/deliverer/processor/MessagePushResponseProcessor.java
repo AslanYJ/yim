@@ -35,9 +35,12 @@ public class MessagePushResponseProcessor implements DelivererMessageProcessor {
         // 直接转发到rocketMQ
         MessagePushResponse response = (MessagePushResponse)message.getBody();
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("messageId",response.getMessageId());
         jsonObject.put("code",response.getCode());
         jsonObject.put("message",response.getMessage());
+        jsonObject.put("senderId",response.getSenderId());
+        jsonObject.put("receiverId",response.getReceiverId());
+        jsonObject.put("sendContent",response.getSendContent());
+        jsonObject.put("timeStamp",response.getTimestamp());
         rocketMqProducer.sendMsg(RocketMqConstant.PUSH_MESSAGE_RESPONSE, jsonObject.toJSONString());
     }
     

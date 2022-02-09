@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.yjlan.im.business.common.RocketMqProducer;
+import com.yjlan.im.business.common.SaveMessageUtils;
 import com.yjlan.im.common.constants.RedisPrefixConstant;
 import com.yjlan.im.common.entity.StoreMessage;
 import com.yjlan.im.common.mq.RocketMqConstant;
@@ -35,9 +36,10 @@ public class PushGroupMessageResponseConsumer implements RocketMQListener<Messag
     
     @Resource
     private RocketMqProducer rocketMqProducer;
+  
     
     @Resource
-    private RedisTemplate<String, String> redisTemplate;
+    private SaveMessageUtils saveMessageUtils;
     
     @Override
     public void onMessage(MessageExt messageExt) {
@@ -50,10 +52,8 @@ public class PushGroupMessageResponseConsumer implements RocketMQListener<Messag
         StoreMessage storeMessage = new StoreMessage();
         storeMessage.setSendContent(sendContent);
         storeMessage.setTimeStamp(timeStamp);
-        String key = RedisPrefixConstant.IM_MESSAGE + receiverId
-                + "-" + groupId;
         // 如果已经读了，那么就删除对应的Redis中的聊天记录，否则就是离线消息
-        Long removeResult = redisTemplate.opsForZSet().remove(key,JSONObject.toJSONString(storeMessage));
+        Long removeResult = saveMessageUtils.removeMessage(receiverId,storeMessage);
         if (removeResult == null || removeResult == 0) {
             LOGGER.info("groupId:{},receiverId:{},storeMessage:{}，删除失败",
                     groupId,receiverId,JSONObject.toJSONString(storeMessage));

@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
 /**
@@ -140,6 +141,7 @@ public class ImNettyClient {
     /**
      * 关闭连接
      */
+    @PreDestroy
     public void close() {
         if (socketChannel != null) {
             socketChannel.close();

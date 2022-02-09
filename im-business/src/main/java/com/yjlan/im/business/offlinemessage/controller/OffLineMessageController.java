@@ -1,7 +1,7 @@
 package com.yjlan.im.business.offlinemessage.controller;
 
 import com.yjlan.im.business.api.OffLineMessageApi;
-import com.yjlan.im.business.api.dto.FetchOffLineGroupMessageDTO;
+import com.yjlan.im.business.api.dto.FetchOffLineMessageDTO;
 import com.yjlan.im.business.api.vo.OffLineMessageVO;
 import com.yjlan.im.business.offlinemessage.service.OffLineMessageService;
 import com.yjlan.im.common.result.ResponseResult;
@@ -20,19 +20,19 @@ import javax.annotation.Resource;
  * @author yjlan
  */
 @RestController
-@RequestMapping("/offLineGroupMessage/")
+@RequestMapping("/offLineMessage/")
 @Api(tags = "离线消息")
-public class OffLineGroupMessageController implements OffLineMessageApi {
+public class OffLineMessageController implements OffLineMessageApi {
 
     @Resource
     private OffLineMessageService offLineMessageService;
 
 
     @ApiOperation(value = "查询离线消息")
-    @PostMapping("listOffLineGroupMessage")
+    @PostMapping("listOffLineMessage")
     @Override
-    public ResponseResult<OffLineMessageVO> listOffLineGroupMessage(@Validated @RequestBody FetchOffLineGroupMessageDTO dto) {
-        OffLineMessageVO vo = offLineMessageService.listOffLineGroupMessage(dto);
+    public ResponseResult<OffLineMessageVO> listOffLineGroupMessage(@Validated @RequestBody FetchOffLineMessageDTO dto) {
+        OffLineMessageVO vo = offLineMessageService.listOffLineMessage(dto);
         return ResponseResult.success(vo);
     }
 }

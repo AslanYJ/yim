@@ -1,4 +1,4 @@
-package com.yjlan.im.business.c2c.mq;
+package com.yjlan.im.business.offlinemessage.mq;
 
 import javax.annotation.Resource;
 
@@ -12,7 +12,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.yjlan.im.business.c2c.dao.PeerToPeerMessageDao;
 import com.yjlan.im.business.c2c.entity.PeerToPeerMsg;
 import com.yjlan.im.business.common.RocketMqProducer;
+import com.yjlan.im.business.common.SaveMessageUtils;
 import com.yjlan.im.common.constants.ImBusinessCode;
+import com.yjlan.im.common.entity.StoreMessage;
 import com.yjlan.im.common.mq.RocketMqConstant;
 
 /**
@@ -36,22 +38,28 @@ public class PushMessageResponseConsumer implements RocketMQListener<MessageExt>
     private RocketMqProducer rocketMqProducer;
     
     @Resource
-    private PeerToPeerMessageDao peerToPeerMessageDao;
+    private SaveMessageUtils saveMessageUtils;
     
     @Override
     public void onMessage(MessageExt messageExt) {
         JSONObject jsonObject = JSON.parseObject(new String(messageExt.getBody()));
-        // 修改消息状态
-        Long messageId = jsonObject.getLong("messageId");
-        peerToPeerMessageDao.updateByMessageId(messageId);
         // 发消息告诉客户端消息已经送达，并且已读
-        PeerToPeerMsg peerToPeerMsg = peerToPeerMessageDao.getById(messageId);
         JSONObject sendInfo = new JSONObject();
-        sendInfo.put("code",ImBusinessCode.MESSAGE_READ_SUCCESS);
-        sendInfo.put("message",messageId + "-" + "消息已经读取");
-        sendInfo.put("senderId",peerToPeerMsg.getSenderId());
-        sendInfo.put("receiverId",peerToPeerMsg.getReceiverId());
-        sendInfo.put("timeStamp",System.currentTimeMillis());
+        Integer code = jsonObject.getInteger("code");
+        String message = jsonObject.getString("message");
+        Long senderId = jsonObject.getLong("senderId");
+        Long receiverId = jsonObject.getLong("receiverId");
+        Long timeStamp = jsonObject.getLong("timeStamp");
+        String sendContent = jsonObject.getString("sendContent");
+        sendInfo.put("code",code);
+        sendInfo.put("message",message);
+        sendInfo.put("senderId",senderId);
+        sendInfo.put("receiverId",receiverId);
+        sendInfo.put("timeStamp",timeStamp);
+        StoreMessage storeMessage = new StoreMessage();
+        storeMessage.setSendContent(sendContent);
+        storeMessage.setTimeStamp(timeStamp);
+        saveMessageUtils.removeMessage(receiverId,storeMessage);
         rocketMqProducer.sendMsg(RocketMqConstant.SEND_MESSAGE_RESPONSE, sendInfo.toJSONString());
     }
 }

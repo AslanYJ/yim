@@ -1,7 +1,6 @@
 package com.yjlan.im.gateway.processor;
 
 import com.yjlan.im.common.proto.GroupMessageSendResponse;
-import com.yjlan.im.common.proto.MessageSendResponse;
 import com.yjlan.im.common.protocol.MessageProtocol;
 import com.yjlan.im.common.protocol.MessageTypeManager;
 import com.yjlan.im.common.utils.MessageProtocolUtils;

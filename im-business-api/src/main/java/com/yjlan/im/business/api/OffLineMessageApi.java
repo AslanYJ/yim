@@ -1,6 +1,6 @@
 package com.yjlan.im.business.api;
 
-import com.yjlan.im.business.api.dto.FetchOffLineGroupMessageDTO;
+import com.yjlan.im.business.api.dto.FetchOffLineMessageDTO;
 import com.yjlan.im.business.api.vo.OffLineMessageVO;
 import com.yjlan.im.common.result.ResponseResult;
 
@@ -15,5 +15,5 @@ public interface OffLineMessageApi {
      * @param dto 请求参数
      * @return 返回离线消息
      */
-    ResponseResult<OffLineMessageVO> listOffLineGroupMessage(FetchOffLineGroupMessageDTO dto);
+    ResponseResult<OffLineMessageVO> listOffLineGroupMessage(FetchOffLineMessageDTO dto);
 }

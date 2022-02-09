@@ -15,6 +15,8 @@ public class ImBusinessCode {
     
     public static final int RESPONSE_FAIL_CODE = -1;
     
+    public static final int VALIDATION_FAIL_CODE = 4000;
+    
     
     /**
      * 异常码
