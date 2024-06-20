@@ -3,6 +3,7 @@ package com.yjlan.im.business;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.retry.annotation.EnableRetry;
 
 /**
  * 业务启动器。
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication(scanBasePackages = "com.yjlan")
 @MapperScan(basePackages = {"com.yjlan.**.mapper*"})
+@EnableRetry
 public class BusinessApplication {
 
     public static void main(String[] args) {

@@ -4,6 +4,7 @@ import com.yjlan.im.gateway.scan.ScanWorker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.retry.annotation.EnableRetry;
 
 /**
  * @author yjlan
@@ -12,9 +13,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2022.01.20 15:47
  */
 @SpringBootApplication(scanBasePackages = "com.yjlan.im.*")
+@EnableRetry
 public class GatewayApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class);
+
     }
 
     @Override

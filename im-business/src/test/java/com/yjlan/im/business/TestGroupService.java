@@ -1,9 +1,15 @@
 package com.yjlan.im.business;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
+import com.github.rholder.retry.Retryer;
+import com.github.rholder.retry.RetryerBuilder;
+import com.github.rholder.retry.StopStrategies;
+import com.github.rholder.retry.WaitStrategies;
+import com.yjlan.im.business.group.service.PayService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +30,9 @@ import com.yjlan.im.business.group.service.GroupService;
 public class TestGroupService {
     @Resource
     private GroupService groupService;
+
+    @Resource
+    private PayService payService;
     
     @Test
     public void testCreateGroup() {
@@ -41,5 +50,11 @@ public class TestGroupService {
         Date date = new Date(timeStamp);
         System.out.println(date);
         System.out.println(groupService.listGroupMember(groupId,date));
+    }
+
+    @Test
+    public void testPayService() {
+        payService.minGoodsNum(0);
+
     }
 }
