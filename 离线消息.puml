@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+autonumber
+actor client as client
+participant business as "im-business"
+database redisCluster as redisCluster
+
+client -> business:通过http接口获取对应的聊天记录（初始请求分数为0）
+redisCluster -> business:从Redis中的RedisSorted获取当前所有的离线消息(拿到最大的分数)
+business -> client:返回一批离线消息（根据分数从小到大）
+client -> business:再次请求的时候带上上次请求的最小分数和最大的分数
+business -> redisCluster:根据上次拉取的最小分数和最大分数删除对应的数据
+redisCluster -> business:继续拉取对应的离线消息
+business -> client:返回新的一批离线消息
+
+
+@enduml

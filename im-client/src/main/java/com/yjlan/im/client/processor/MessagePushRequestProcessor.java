@@ -36,8 +36,11 @@ public class MessagePushRequestProcessor implements ClientMessageProcessor{
         // 直接返回一个Response
         MessagePushResponse messagePushResponse = MessagePushResponse.newBuilder()
                 .setCode(ImBusinessCode.MESSAGE_READ_SUCCESS)
-                .setMessageId(messagePushRequest.getMessageId())
                 .setMessage("消息读取成功！")
+                .setSendContent(messagePushRequest.getSendContent())
+                .setReceiverId(messagePushRequest.getReceiverId())
+                .setSenderId(messagePushRequest.getSenderId())
+                .setTimestamp(messagePushRequest.getTimestamp())
                 .build();
         MessageProtocolUtils.sendMsg((SocketChannel) ctx.channel(),messagePushResponse);
     }

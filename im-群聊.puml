@@ -1,0 +1,61 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor client as client
+participant gateway as "im-gateway"
+participant dispatcher as "im-dispatcher"
+participant business as "im-business"
+participant deliverer as "im-deliverer"
+database mysql as "mysql(分库分表，读写分离)"
+queue rocketmq as "rocketmq集群"
+database redisCluster as redisCluster
+
+'逻辑
+client -> gateway: 发送群聊消息请求(GroupMessageSendRequest)
+activate gateway
+
+gateway -> dispatcher:转发(GroupMessageSendRequest)
+activate dispatcher
+
+dispatcher -> rocketmq:将GroupSendMessageRequest的请求内容处理后发送到MQ
+note left:topic:send_group_message
+activate rocketmq
+
+rocketmq -> business: 消费对应topic的消息，处理逻辑
+note left: topic:send_group_message
+activate business
+
+mysql -> business:从Mysql中根据发送时间，通过加群时间\n过滤查询得到所有的群成员
+activate mysql
+
+business -> business:根据发送的消息内容，采用SortedSet为每一个生成一个离线消息（默认都不在线）
+note left:key:offline_message_#{receiverId}
+
+business -> redisCluster: 将生成的消息存入Redis Cluster中
+
+business -> rocketmq:为每一个receiver生成一个推送消息
+note left:topic:push_group_message
+
+business -> rocketmq:推送群消息(群消息的历史消息采取读扩散机制，只会生成一条历史数据)
+note left:topic:push_group_history_message
+
+rocketmq -> deliverer:消费群消息推送的topic，对于每一个client推送消息
+group 推送消息
+  autonumber stop
+ alt client状态正常（在线，可推送）
+  deliverer -> client:推送消息(PushGroupMessageRequest)
+  client -> deliverer:返回消息(PushGroupMessageResponse)
+  deliverer -> rocketmq:发送消息成功,发送消息消费成功
+  note left:topic:send_group_message_response
+  rocketmq -> business:离线服务消费对应topic的消息，将对应的离线消息删掉
+  note left:topic:send_group_message_response
+  business -> redisCluster:删除对应的用户的某条离线消息
+ else client不在线，不作任何处理
+end
+
+
+
+
+
+@enduml

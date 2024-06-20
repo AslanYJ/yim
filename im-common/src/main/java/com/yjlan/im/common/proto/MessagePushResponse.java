@@ -16,8 +16,11 @@ public  final class MessagePushResponse extends
   }
   private MessagePushResponse() {
     code_ = 0;
-    messageId_ = 0L;
     message_ = "";
+    senderId_ = 0L;
+    receiverId_ = 0L;
+    sendContent_ = "";
+    timestamp_ = 0L;
   }
 
   @java.lang.Override
@@ -50,15 +53,31 @@ public  final class MessagePushResponse extends
             code_ = input.readInt32();
             break;
           }
-          case 16: {
-
-            messageId_ = input.readInt64();
-            break;
-          }
-          case 26: {
+          case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
             message_ = s;
+            break;
+          }
+          case 24: {
+
+            senderId_ = input.readInt64();
+            break;
+          }
+          case 32: {
+
+            receiverId_ = input.readInt64();
+            break;
+          }
+          case 42: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            sendContent_ = s;
+            break;
+          }
+          case 48: {
+
+            timestamp_ = input.readInt64();
             break;
           }
         }
@@ -93,19 +112,10 @@ public  final class MessagePushResponse extends
     return code_;
   }
 
-  public static final int MESSAGEID_FIELD_NUMBER = 2;
-  private long messageId_;
-  /**
-   * <code>optional int64 messageId = 2;</code>
-   */
-  public long getMessageId() {
-    return messageId_;
-  }
-
-  public static final int MESSAGE_FIELD_NUMBER = 3;
+  public static final int MESSAGE_FIELD_NUMBER = 2;
   private volatile java.lang.Object message_;
   /**
-   * <code>optional string message = 3;</code>
+   * <code>optional string message = 2;</code>
    */
   public java.lang.String getMessage() {
     java.lang.Object ref = message_;
@@ -120,7 +130,7 @@ public  final class MessagePushResponse extends
     }
   }
   /**
-   * <code>optional string message = 3;</code>
+   * <code>optional string message = 2;</code>
    */
   public com.google.protobuf.ByteString
       getMessageBytes() {
@@ -134,6 +144,67 @@ public  final class MessagePushResponse extends
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
+  }
+
+  public static final int SENDERID_FIELD_NUMBER = 3;
+  private long senderId_;
+  /**
+   * <code>optional int64 senderId = 3;</code>
+   */
+  public long getSenderId() {
+    return senderId_;
+  }
+
+  public static final int RECEIVERID_FIELD_NUMBER = 4;
+  private long receiverId_;
+  /**
+   * <code>optional int64 receiverId = 4;</code>
+   */
+  public long getReceiverId() {
+    return receiverId_;
+  }
+
+  public static final int SENDCONTENT_FIELD_NUMBER = 5;
+  private volatile java.lang.Object sendContent_;
+  /**
+   * <code>optional string sendContent = 5;</code>
+   */
+  public java.lang.String getSendContent() {
+    java.lang.Object ref = sendContent_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      sendContent_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>optional string sendContent = 5;</code>
+   */
+  public com.google.protobuf.ByteString
+      getSendContentBytes() {
+    java.lang.Object ref = sendContent_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      sendContent_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int TIMESTAMP_FIELD_NUMBER = 6;
+  private long timestamp_;
+  /**
+   * <code>optional int64 timestamp = 6;</code>
+   */
+  public long getTimestamp() {
+    return timestamp_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -151,11 +222,20 @@ public  final class MessagePushResponse extends
     if (code_ != 0) {
       output.writeInt32(1, code_);
     }
-    if (messageId_ != 0L) {
-      output.writeInt64(2, messageId_);
-    }
     if (!getMessageBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, message_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
+    }
+    if (senderId_ != 0L) {
+      output.writeInt64(3, senderId_);
+    }
+    if (receiverId_ != 0L) {
+      output.writeInt64(4, receiverId_);
+    }
+    if (!getSendContentBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, sendContent_);
+    }
+    if (timestamp_ != 0L) {
+      output.writeInt64(6, timestamp_);
     }
   }
 
@@ -168,12 +248,23 @@ public  final class MessagePushResponse extends
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(1, code_);
     }
-    if (messageId_ != 0L) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(2, messageId_);
-    }
     if (!getMessageBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, message_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
+    }
+    if (senderId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(3, senderId_);
+    }
+    if (receiverId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(4, receiverId_);
+    }
+    if (!getSendContentBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, sendContent_);
+    }
+    if (timestamp_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(6, timestamp_);
     }
     memoizedSize = size;
     return size;
@@ -193,10 +284,16 @@ public  final class MessagePushResponse extends
     boolean result = true;
     result = result && (getCode()
         == other.getCode());
-    result = result && (getMessageId()
-        == other.getMessageId());
     result = result && getMessage()
         .equals(other.getMessage());
+    result = result && (getSenderId()
+        == other.getSenderId());
+    result = result && (getReceiverId()
+        == other.getReceiverId());
+    result = result && getSendContent()
+        .equals(other.getSendContent());
+    result = result && (getTimestamp()
+        == other.getTimestamp());
     return result;
   }
 
@@ -209,11 +306,19 @@ public  final class MessagePushResponse extends
     hash = (19 * hash) + getDescriptorForType().hashCode();
     hash = (37 * hash) + CODE_FIELD_NUMBER;
     hash = (53 * hash) + getCode();
-    hash = (37 * hash) + MESSAGEID_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getMessageId());
     hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
     hash = (53 * hash) + getMessage().hashCode();
+    hash = (37 * hash) + SENDERID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getSenderId());
+    hash = (37 * hash) + RECEIVERID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getReceiverId());
+    hash = (37 * hash) + SENDCONTENT_FIELD_NUMBER;
+    hash = (53 * hash) + getSendContent().hashCode();
+    hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getTimestamp());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -334,9 +439,15 @@ public  final class MessagePushResponse extends
       super.clear();
       code_ = 0;
 
-      messageId_ = 0L;
-
       message_ = "";
+
+      senderId_ = 0L;
+
+      receiverId_ = 0L;
+
+      sendContent_ = "";
+
+      timestamp_ = 0L;
 
       return this;
     }
@@ -361,8 +472,11 @@ public  final class MessagePushResponse extends
     public com.yjlan.im.common.proto.MessagePushResponse buildPartial() {
       com.yjlan.im.common.proto.MessagePushResponse result = new com.yjlan.im.common.proto.MessagePushResponse(this);
       result.code_ = code_;
-      result.messageId_ = messageId_;
       result.message_ = message_;
+      result.senderId_ = senderId_;
+      result.receiverId_ = receiverId_;
+      result.sendContent_ = sendContent_;
+      result.timestamp_ = timestamp_;
       onBuilt();
       return result;
     }
@@ -407,12 +521,22 @@ public  final class MessagePushResponse extends
       if (other.getCode() != 0) {
         setCode(other.getCode());
       }
-      if (other.getMessageId() != 0L) {
-        setMessageId(other.getMessageId());
-      }
       if (!other.getMessage().isEmpty()) {
         message_ = other.message_;
         onChanged();
+      }
+      if (other.getSenderId() != 0L) {
+        setSenderId(other.getSenderId());
+      }
+      if (other.getReceiverId() != 0L) {
+        setReceiverId(other.getReceiverId());
+      }
+      if (!other.getSendContent().isEmpty()) {
+        sendContent_ = other.sendContent_;
+        onChanged();
+      }
+      if (other.getTimestamp() != 0L) {
+        setTimestamp(other.getTimestamp());
       }
       onChanged();
       return this;
@@ -466,35 +590,9 @@ public  final class MessagePushResponse extends
       return this;
     }
 
-    private long messageId_ ;
-    /**
-     * <code>optional int64 messageId = 2;</code>
-     */
-    public long getMessageId() {
-      return messageId_;
-    }
-    /**
-     * <code>optional int64 messageId = 2;</code>
-     */
-    public Builder setMessageId(long value) {
-      
-      messageId_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>optional int64 messageId = 2;</code>
-     */
-    public Builder clearMessageId() {
-      
-      messageId_ = 0L;
-      onChanged();
-      return this;
-    }
-
     private java.lang.Object message_ = "";
     /**
-     * <code>optional string message = 3;</code>
+     * <code>optional string message = 2;</code>
      */
     public java.lang.String getMessage() {
       java.lang.Object ref = message_;
@@ -509,7 +607,7 @@ public  final class MessagePushResponse extends
       }
     }
     /**
-     * <code>optional string message = 3;</code>
+     * <code>optional string message = 2;</code>
      */
     public com.google.protobuf.ByteString
         getMessageBytes() {
@@ -525,7 +623,7 @@ public  final class MessagePushResponse extends
       }
     }
     /**
-     * <code>optional string message = 3;</code>
+     * <code>optional string message = 2;</code>
      */
     public Builder setMessage(
         java.lang.String value) {
@@ -538,7 +636,7 @@ public  final class MessagePushResponse extends
       return this;
     }
     /**
-     * <code>optional string message = 3;</code>
+     * <code>optional string message = 2;</code>
      */
     public Builder clearMessage() {
       
@@ -547,7 +645,7 @@ public  final class MessagePushResponse extends
       return this;
     }
     /**
-     * <code>optional string message = 3;</code>
+     * <code>optional string message = 2;</code>
      */
     public Builder setMessageBytes(
         com.google.protobuf.ByteString value) {
@@ -557,6 +655,153 @@ public  final class MessagePushResponse extends
   checkByteStringIsUtf8(value);
       
       message_ = value;
+      onChanged();
+      return this;
+    }
+
+    private long senderId_ ;
+    /**
+     * <code>optional int64 senderId = 3;</code>
+     */
+    public long getSenderId() {
+      return senderId_;
+    }
+    /**
+     * <code>optional int64 senderId = 3;</code>
+     */
+    public Builder setSenderId(long value) {
+      
+      senderId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional int64 senderId = 3;</code>
+     */
+    public Builder clearSenderId() {
+      
+      senderId_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long receiverId_ ;
+    /**
+     * <code>optional int64 receiverId = 4;</code>
+     */
+    public long getReceiverId() {
+      return receiverId_;
+    }
+    /**
+     * <code>optional int64 receiverId = 4;</code>
+     */
+    public Builder setReceiverId(long value) {
+      
+      receiverId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional int64 receiverId = 4;</code>
+     */
+    public Builder clearReceiverId() {
+      
+      receiverId_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object sendContent_ = "";
+    /**
+     * <code>optional string sendContent = 5;</code>
+     */
+    public java.lang.String getSendContent() {
+      java.lang.Object ref = sendContent_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sendContent_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string sendContent = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSendContentBytes() {
+      java.lang.Object ref = sendContent_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sendContent_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string sendContent = 5;</code>
+     */
+    public Builder setSendContent(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      sendContent_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string sendContent = 5;</code>
+     */
+    public Builder clearSendContent() {
+      
+      sendContent_ = getDefaultInstance().getSendContent();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string sendContent = 5;</code>
+     */
+    public Builder setSendContentBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      sendContent_ = value;
+      onChanged();
+      return this;
+    }
+
+    private long timestamp_ ;
+    /**
+     * <code>optional int64 timestamp = 6;</code>
+     */
+    public long getTimestamp() {
+      return timestamp_;
+    }
+    /**
+     * <code>optional int64 timestamp = 6;</code>
+     */
+    public Builder setTimestamp(long value) {
+      
+      timestamp_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional int64 timestamp = 6;</code>
+     */
+    public Builder clearTimestamp() {
+      
+      timestamp_ = 0L;
       onChanged();
       return this;
     }

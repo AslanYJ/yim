@@ -11,17 +11,19 @@ public class OffLineMessageVO {
     /**
      * 返回的列表
      */
-    private List<OffLineMessage> MessageList;
+    private List<OffLineMessage> messageList;
+    
+    
+    /**
+     * 上次拉取的最小分数
+     */
+    private Double lastFetchMinScore;
 
     /**
      * 上次拉取的最大分数
      */
     private Double lastFetchMaxScore;
-
-    /**
-     * 可拉取的最大分数
-     */
-    private Double maxScore;
+    
 
 
     public static class OffLineMessage {
@@ -39,6 +41,10 @@ public class OffLineMessageVO {
          * 内容
          */
         private String sendContent;
+        
+        public OffLineMessage() {
+            this.groupId = 0L;
+        }
 
         public Long getGroupId() {
             return groupId;
@@ -64,16 +70,15 @@ public class OffLineMessageVO {
             this.sendContent = sendContent;
         }
     }
-
-
+    
     public List<OffLineMessage> getMessageList() {
-        return MessageList;
+        return messageList;
     }
-
+    
     public void setMessageList(List<OffLineMessage> messageList) {
-        MessageList = messageList;
+        this.messageList = messageList;
     }
-
+    
     public Double getLastFetchMaxScore() {
         return lastFetchMaxScore;
     }
@@ -81,21 +86,22 @@ public class OffLineMessageVO {
     public void setLastFetchMaxScore(Double lastFetchMaxScore) {
         this.lastFetchMaxScore = lastFetchMaxScore;
     }
-
-    public Double getMaxScore() {
-        return maxScore;
+    
+    
+    public Double getLastFetchMinScore() {
+        return lastFetchMinScore;
     }
-
-    public void setMaxScore(Double maxScore) {
-        this.maxScore = maxScore;
+    
+    public void setLastFetchMinScore(Double lastFetchMinScore) {
+        this.lastFetchMinScore = lastFetchMinScore;
     }
-
+    
     @Override
     public String toString() {
-        return "OffLineGroupMessageVO{" +
-                "MessageList=" + MessageList +
+        return "OffLineMessageVO{" +
+                "messageList=" + messageList +
+                ", lastFetchMinScore=" + lastFetchMinScore +
                 ", lastFetchMaxScore=" + lastFetchMaxScore +
-                ", maxScore=" + maxScore +
                 '}';
     }
 }

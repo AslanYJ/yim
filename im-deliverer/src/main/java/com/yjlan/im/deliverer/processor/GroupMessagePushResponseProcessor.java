@@ -1,7 +1,6 @@
 package com.yjlan.im.deliverer.processor;
 
 import com.alibaba.fastjson.JSONObject;
-import com.yjlan.im.common.constants.ImBusinessCode;
 import com.yjlan.im.common.mq.RocketMqConstant;
 import com.yjlan.im.common.proto.GroupMessagePushResponse;
 import com.yjlan.im.common.protocol.MessageProtocol;

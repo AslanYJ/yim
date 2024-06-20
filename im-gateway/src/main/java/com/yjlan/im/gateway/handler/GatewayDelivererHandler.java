@@ -27,7 +27,7 @@ public class GatewayDelivererHandler extends SimpleChannelInboundHandler<Message
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        LOGGER.info("已经跟deliverer建立连接，客户端地址为：+ ctx.channel()");
+        LOGGER.info("已经跟deliverer建立连接，客户端地址为:{}",ctx.channel());
     }
 
     @Override

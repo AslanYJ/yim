@@ -30,6 +30,18 @@ public class SaveMessageUtils {
         String key = getKey(userId);
         redisTemplate.opsForZSet().add(key, JSONObject.toJSONString(storeMessage),Double.valueOf(storeMessage.getTimeStamp()));
     }
+    
+    
+    /**
+     * 删除一条消息
+     * @param userId 用户id
+     * @param storeMessage 保存的消息
+     * @return 返回删除的结果
+     */
+    public Long removeMessage(Long userId,StoreMessage storeMessage) {
+        String key = getKey(userId);
+        return redisTemplate.opsForZSet().remove(key,JSONObject.toJSONString(storeMessage));
+    }
 
 
     /**

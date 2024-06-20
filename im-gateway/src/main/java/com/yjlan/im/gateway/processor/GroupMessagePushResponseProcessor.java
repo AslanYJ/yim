@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import com.yjlan.im.common.proto.GroupMessagePushResponse;
 import com.yjlan.im.common.protocol.MessageProtocol;
 import com.yjlan.im.common.protocol.MessageTypeManager;
-import com.yjlan.im.gateway.dispatcher.DispatcherManager;
 
 /**
  * @author yjlan
